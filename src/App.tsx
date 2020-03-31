@@ -7,9 +7,10 @@ import { getMap } from "./service";
 
 function App() {
     const [data, setData] = useState<any>([]);
+    const [date, setDate] = useState<string>("04/01/20");
     useEffect(() => {
         (async () => {
-            setData(await getMap(""));
+            setData(await getMap(date));
         })();
     }, []);
 
