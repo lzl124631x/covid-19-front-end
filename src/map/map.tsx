@@ -35,13 +35,14 @@ export function Map() {
     const [date, setDate] = useState<string>("04/01/20");
     const [type, setType] = useState<string>("hosp_need");
     const [percentile, setPercentile] = useState<string>("50");
+    const [contact, setContact] = useState<string>("50");
     const field = `${type}_${percentile}`;
 
     useEffect(() => {
         (async () => {
-            setData(await getMap({ date, field }));
+            setData(await getMap({ date, field, contact }));
         })();
-    }, [field, date]);
+    }, [field, date, contact]);
 
     const options: Highcharts.Options = {
         title: {
@@ -93,6 +94,21 @@ export function Map() {
                     {dates.map(d => (
                         <option value={d} key={d}>
                             {d}
+                        </option>
+                    ))}
+                </select>
+                <select
+                    className="map-control"
+                    value={contact}
+                    onChange={e => setContact(e.target.value)}
+                >
+                    {[
+                        { val: "50", text: "50% contact" },
+                        { val: "75", text: "75% contact" },
+                        { val: "100", text: "No intervention" }
+                    ].map(({ val, text }) => (
+                        <option value={val} key={val}>
+                            {text}
                         </option>
                     ))}
                 </select>
