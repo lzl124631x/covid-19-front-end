@@ -3,6 +3,7 @@ import HighchartsReact from "highcharts-react-official";
 import { mapData } from "../us";
 import { getMap } from "../service";
 import React, { useEffect, useState } from "react";
+import "./map.sass";
 
 export function Map() {
     const [data, setData] = useState<any>([]);
@@ -37,22 +38,29 @@ export function Map() {
 
     return (
         <>
-            <select value={type} onChange={e => setType(e.target.value)}>
-                <option value="hosp_need">Bed</option>
-                <option value="ICU_need">ICU</option>
-                <option value="vent_need">Ventilator</option>
-                <option value="death">Death</option>
-            </select>
-            <select
-                value={percentile}
-                onChange={e => setPercentile(e.target.value)}
-            >
-                <option value="2.5">2.5</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="75">75</option>
-                <option value="97.5">97.5</option>
-            </select>
+            <div className="map-controls">
+                <select
+                    className="map-control"
+                    value={type}
+                    onChange={e => setType(e.target.value)}
+                >
+                    <option value="hosp_need">Bed</option>
+                    <option value="ICU_need">ICU</option>
+                    <option value="vent_need">Ventilator</option>
+                    <option value="death">Death</option>
+                </select>
+                <select
+                    className="map-control"
+                    value={percentile}
+                    onChange={e => setPercentile(e.target.value)}
+                >
+                    <option value="2.5">2.5</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="97.5">97.5</option>
+                </select>
+            </div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
