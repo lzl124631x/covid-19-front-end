@@ -5,6 +5,31 @@ import { getMap } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
 
+const dates = [
+    "03/24/20",
+    "03/25/20",
+    "03/26/20",
+    "03/27/20",
+    "03/28/20",
+    "03/29/20",
+    "03/30/20",
+    "03/31/20",
+    "04/01/20",
+    "04/02/20",
+    "04/03/20",
+    "04/04/20",
+    "04/05/20",
+    "04/06/20",
+    "04/07/20",
+    "04/08/20",
+    "04/09/20",
+    "04/10/20",
+    "04/11/20",
+    "04/12/20",
+    "04/13/20",
+    "04/14/20"
+];
+
 export function Map() {
     const [data, setData] = useState<any>([]);
     const [date, setDate] = useState<string>("04/01/20");
@@ -16,7 +41,7 @@ export function Map() {
         (async () => {
             setData(await getMap({ date, field }));
         })();
-    }, [field]);
+    }, [field, date]);
 
     const options: Highcharts.Options = {
         title: {
@@ -59,6 +84,17 @@ export function Map() {
                     <option value="50">50</option>
                     <option value="75">75</option>
                     <option value="97.5">97.5</option>
+                </select>
+                <select
+                    className="map-control"
+                    value={date}
+                    onChange={e => setDate(e.target.value)}
+                >
+                    {dates.map(d => (
+                        <option value={d} key={d}>
+                            {d}
+                        </option>
+                    ))}
                 </select>
             </div>
             <HighchartsReact
