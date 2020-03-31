@@ -61,9 +61,8 @@ export function Map() {
             } as any
         ]
     };
-
     return (
-        <>
+        <div className="map">
             <div className="map-controls">
                 <select
                     className="map-control"
@@ -118,6 +117,6 @@ export function Map() {
                 options={options}
                 constructorType={"mapChart"}
             />
-        </>
+        </div>
     );
 }
