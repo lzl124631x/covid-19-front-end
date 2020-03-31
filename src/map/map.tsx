@@ -7,13 +7,15 @@ import React, { useEffect, useState } from "react";
 export function Map() {
     const [data, setData] = useState<any>([]);
     const [date, setDate] = useState<string>("04/01/20");
-    const [field, setField] = useState<string>("hosp_need_50");
+    const [type, setType] = useState<string>("hosp_need");
+    const [percentile, setPercentile] = useState<string>("50");
+    const field = `${type}_${percentile}`;
 
     useEffect(() => {
         (async () => {
             setData(await getMap({ date, field }));
         })();
-    }, []);
+    }, [field]);
 
     const options: Highcharts.Options = {
         title: {
@@ -34,10 +36,28 @@ export function Map() {
     };
 
     return (
-        <HighchartsReact
-            highcharts={Highcharts}
-            options={options}
-            constructorType={"mapChart"}
-        />
+        <>
+            <select value={type} onChange={e => setType(e.target.value)}>
+                <option value="hosp_need">Bed</option>
+                <option value="ICU_need">ICU</option>
+                <option value="vent_need">Ventilator</option>
+                <option value="death">Death</option>
+            </select>
+            <select
+                value={percentile}
+                onChange={e => setPercentile(e.target.value)}
+            >
+                <option value="2.5">2.5</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="97.5">97.5</option>
+            </select>
+            <HighchartsReact
+                highcharts={Highcharts}
+                options={options}
+                constructorType={"mapChart"}
+            />
+        </>
     );
 }
