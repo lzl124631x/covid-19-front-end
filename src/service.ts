@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendUrl = `${window.location.protocol}://${window.location.hostname}:6789`;
+const backendUrl = `${window.location.protocol}//${window.location.hostname}:6789`;
 
 export const getMap = async (options: {
     date: string;
