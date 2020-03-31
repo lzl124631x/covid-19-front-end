@@ -1,65 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.sass";
 import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
 import { mapData } from "./us";
+import { getMap } from "./service";
 
 function App() {
-    var data = [
-        ["us-ma", 0],
-        ["us-wa", 1],
-        ["us-ca", 2],
-        ["us-or", 3],
-        ["us-wi", 4],
-        ["us-me", 5],
-        ["us-mi", 6],
-        ["us-nv", 7],
-        ["us-nm", 8],
-        ["us-co", 9],
-        ["us-wy", 10],
-        ["us-ks", 11],
-        ["us-ne", 12],
-        ["us-ok", 13],
-        ["us-mo", 14],
-        ["us-il", 15],
-        ["us-in", 16],
-        ["us-vt", 17],
-        ["us-ar", 18],
-        ["us-tx", 19],
-        ["us-ri", 20],
-        ["us-al", 21],
-        ["us-ms", 22],
-        ["us-nc", 23],
-        ["us-va", 24],
-        ["us-ia", 25],
-        ["us-md", 26],
-        ["us-de", 27],
-        ["us-pa", 28],
-        ["us-nj", 29],
-        ["us-ny", 30],
-        ["us-id", 31],
-        ["us-sd", 32],
-        ["us-ct", 33],
-        ["us-nh", 34],
-        ["us-ky", 35],
-        ["us-oh", 36],
-        ["us-tn", 37],
-        ["us-wv", 38],
-        ["us-dc", 39],
-        ["us-la", 40],
-        ["us-fl", 41],
-        ["us-ga", 42],
-        ["us-sc", 43],
-        ["us-mn", 44],
-        ["us-mt", 45],
-        ["us-nd", 46],
-        ["us-az", 47],
-        ["us-ut", 48]
-    ];
+    const [data, setData] = useState<any>([]);
+    useEffect(() => {
+        (async () => {
+            setData(await getMap(""));
+        })();
+    }, []);
 
     const options: Highcharts.Options = {
         title: {
-            text: "My chart"
+            text: "COVID-19 Projection"
         },
 
         colorAxis: {
@@ -69,7 +25,7 @@ function App() {
         series: [
             {
                 mapData: mapData,
-                name: "Random data",
+                name: "Hosp",
                 data: data
             } as any
         ]
