@@ -16,3 +16,12 @@ export const getMap = async (options: {
         alert(err);
     }
 };
+
+export const getDates = async () => {
+    try {
+        const response = await axios.get(`${backendUrl}/dates`);
+        return response.data;
+    } catch (err) {
+        alert(err);
+    }
+};
