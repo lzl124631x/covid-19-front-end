@@ -5,6 +5,13 @@ import { getMap, getDates } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
 
+const types = [
+    { value: "hosp_need", text: "Bed" },
+    { value: "ICU_need", text: "ICU" },
+    { value: "vent_need", text: "Ventilator" },
+    { value: "death", text: "Death" }
+];
+
 export function Map() {
     const [data, setData] = useState<any>([]);
     const [date, setDate] = useState<string>("");
@@ -28,6 +35,8 @@ export function Map() {
         })();
     }, [field, date, contact]);
 
+    const typeText = types.find(({ value }) => value === type)?.text;
+
     const options: Highcharts.Options = {
         title: {
             text: "COVID-19 Projection"
@@ -40,7 +49,7 @@ export function Map() {
         series: [
             {
                 mapData: mapData,
-                name: "Hosp",
+                name: typeText,
                 data: data
             } as any
         ]
@@ -55,10 +64,9 @@ export function Map() {
                         value={type}
                         onChange={e => setType(e.target.value)}
                     >
-                        <option value="hosp_need">Bed</option>
-                        <option value="ICU_need">ICU</option>
-                        <option value="vent_need">Ventilator</option>
-                        <option value="death">Death</option>
+                        {types.map(({ value, text }) => (
+                            <option value={value}>{text}</option>
+                        ))}
                     </select>
                 </label>
                 <label>
