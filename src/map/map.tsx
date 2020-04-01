@@ -14,18 +14,19 @@ const types = [
 
 export function Map() {
     const [data, setData] = useState<any>([]);
-    const [date, setDate] = useState<string>("");
     const [type, setType] = useState<string>("hosp_need");
     const [percentile, setPercentile] = useState<string>("50");
     const [contact, setContact] = useState<string>("50");
     const [dates, setDates] = useState<string[]>([]);
+    const [dateIndex, setDateIndex] = useState<number>(0);
     const field = `${type}_${percentile}`;
+    const date = dates[dateIndex];
 
     useEffect(() => {
         (async () => {
             const ds = await getDates();
             setDates(ds);
-            setDate(ds[0]);
+            setDateIndex(0);
         })();
     }, []);
 
@@ -101,26 +102,23 @@ export function Map() {
                         ))}
                     </select>
                 </label>
-                <label>
-                    <div className="label-title">Date</div>
-                    <select
-                        className="map-control"
-                        value={date}
-                        onChange={e => setDate(e.target.value)}
-                    >
-                        {dates.map(d => (
-                            <option value={d} key={d}>
-                                {d}
-                            </option>
-                        ))}
-                    </select>
-                </label>
             </div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
                 constructorType={"mapChart"}
             />
+            <div className="date-control">
+                <div className="date-text">Date: {date}</div>
+                <input
+                    type="range"
+                    min={0}
+                    max={dates.length - 1}
+                    className="date-slider"
+                    value={dateIndex}
+                    onChange={e => setDateIndex(+e.target.value)}
+                />
+            </div>
         </div>
     );
 }
