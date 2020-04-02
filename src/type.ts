@@ -6,3 +6,9 @@ export type MapData = {
 export type MapDataEntry = [string, MapStateEntry[]]; // [0] = date
 
 export type MapStateEntry = [string, number]; // state, value
+
+
+export type MapProps = {
+    type: string;
+    contact: string;
+}
