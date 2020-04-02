@@ -58,6 +58,7 @@ export function Map() {
         },
         chart: {
             backgroundColor: "#F7F7F7",
+            height: 500,
         },
         colorAxis: {
             min: 0,
@@ -74,8 +75,15 @@ export function Map() {
                 mapData: mapData,
                 name: typeText,
                 data: series,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.name}",
+                },
             } as any,
         ],
+        responsive: {
+            rules: [],
+        },
     };
     return (
         <div className="map">
