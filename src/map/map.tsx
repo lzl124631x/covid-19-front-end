@@ -69,7 +69,9 @@ export function Map() {
                         onChange={e => setType(e.target.value)}
                     >
                         {types.map(({ value, text }) => (
-                            <option value={value}>{text}</option>
+                            <option value={value} key={value}>
+                                {text}
+                            </option>
                         ))}
                     </select>
                 </label>
