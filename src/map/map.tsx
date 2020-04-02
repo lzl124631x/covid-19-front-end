@@ -51,14 +51,22 @@ export function Map() {
     const typeText = types.find(({ value }) => value === type)?.text;
     const dateData = data?.data.find(d => d[0] === date) || [];
     const series = [...(dateData[1] || [])];
+    const maxValue = data?.maxValue || 0;
     const options: Highcharts.Options = {
         title: {
             text: "COVID-19 Projection",
         },
-
+        chart: {
+            backgroundColor: "#F7F7F7",
+        },
         colorAxis: {
             min: 0,
-            max: data?.maxValue,
+            max: maxValue,
+            stops: [
+                [0, "#FFFFFF"],
+                [0.5, "#F49F82"],
+                [1, "#500007"],
+            ],
         },
 
         series: [
