@@ -35,7 +35,7 @@ export class App extends React.Component<{}, AppState> {
             <div className="App">
                 <div className="container">
                     <div className="app-header">COVID-19 Projection</div>
-                    <div className="app app-controls">
+                    <div>
                         <Dropdown
                             dropdownWidth={100}
                             styles={{ dropdown: { width: 100 } }}
