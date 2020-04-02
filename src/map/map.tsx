@@ -8,6 +8,7 @@ import { MapData } from "../type";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import { useInterval } from "../util";
+import { Slider } from "@fluentui/react";
 
 const types = [
     { value: "hosp_need", text: "Bed" },
@@ -150,13 +151,14 @@ export function Map() {
                         <FontAwesomeIcon icon={playing ? faPause : faPlay} />
                     </button>
                 </div>
-                <input
-                    type="range"
+                <Slider
                     min={0}
                     max={dates.length - 1}
                     className="date-slider"
                     value={dateIndex}
-                    onChange={e => setDateIndex(+e.target.value)}
+                    onChange={setDateIndex}
+                    showValue={false}
+                    snapToStep
                 />
             </div>
         </div>
