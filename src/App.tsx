@@ -5,7 +5,10 @@ import { Map } from "./map/map";
 function App() {
     return (
         <div className="App">
-            <Map />
+            <div className="container">
+                <div className="app-header">COVID-19 Projection</div>
+                <Map />
+            </div>
         </div>
     );
 }

@@ -1,10 +1,15 @@
+@import "./variable"
+
 html,
 body,
-#root,
-.App
   height: 100%
+  margin: 0
 
 .App
-  display: flex
-  align-items: center
-  justify-content: center
+  .container
+    width: 50em
+    margin: 0 auto
+  .app-header
+    padding: $space-md
+    font-size: 4em
+    text-align: center

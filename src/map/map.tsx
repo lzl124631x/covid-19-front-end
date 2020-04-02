@@ -67,19 +67,20 @@ export function Map() {
     const maxValue = data?.maxValue || 0;
     const options: Highcharts.Options = {
         title: {
-            text: "COVID-19 Projection",
+            text: "",
         },
         chart: {
             backgroundColor: "#F7F7F7",
             height: 500,
+            borderRadius: 5,
         },
         colorAxis: {
             min: 0,
             max: maxValue,
             stops: [
                 [0, "#FFFFFF"],
-                [0.5, "#F49F82"],
-                [1, "#500007"],
+                [0.5, "#FFA500"],
+                [1, "#65000b"],
             ],
         },
 
