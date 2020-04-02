@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.sass";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { initializeIcons } from "@fluentui/react";
+
+initializeIcons();
 
 ReactDOM.render(
     <React.StrictMode>

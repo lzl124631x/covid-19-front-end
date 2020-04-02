@@ -1,18 +1,14 @@
 $space-xs: 0.25em
 $space-sm: 0.5em
 $space-md: 1em
-$color-text: #fff
-
-.btn
-    background-color: transparent
-    border: 0
-    color: $color-text
-    outline: 0
-    cursor: pointer
+$color-text: #333
 
 .flex-horizontal
     display: flex
     flex-direction: horizontal
+.flex-horizontal-vcenter
+    align-items: center
+    @extend .flex-horizontal
 .flex-item-auto
     flex: auto
     min-width: 0
@@ -24,19 +20,15 @@ $color-text: #fff
     padding: $space-md
     .map-controls
         padding: $space-sm 0
-        >label
-            display: inline-block
+        .map-control
             margin: 0 $space-xs
-            .label-title
-                color: $color-text
-                font-size: .9em
-                margin-bottom: $space-xs
-                .map-control
+            display: inline-block
+
     .date-control
         margin: $space-md 0
         color: $color-text
         .date-text-row
-            @extend .flex-horizontal
+            @extend .flex-horizontal-vcenter
 
             .date-text
                 font-size: .9em
@@ -45,4 +37,3 @@ $color-text: #fff
         .date-slider
             cursor: pointer
             width: 100%
-            margin-top: $space-md

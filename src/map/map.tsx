@@ -5,16 +5,28 @@ import { getMap, getDates } from "../service";
 import React, { useEffect, useState, useRef } from "react";
 import "./map.sass";
 import { MapData } from "../type";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import { useInterval } from "../util";
-import { Slider } from "@fluentui/react";
+import { Slider, Dropdown, CommandButton } from "@fluentui/react";
 
-const types = [
-    { value: "hosp_need", text: "Bed" },
-    { value: "ICU_need", text: "ICU" },
-    { value: "vent_need", text: "Ventilator" },
-    { value: "death", text: "Death" },
+const typeOptions = [
+    { key: "hosp_need", text: "Bed" },
+    { key: "ICU_need", text: "ICU" },
+    { key: "vent_need", text: "Ventilator" },
+    { key: "death", text: "Death" },
+];
+
+const percentileOptions = [
+    { key: "2.5", text: "2.5" },
+    { key: "25", text: "25" },
+    { key: "50", text: "50" },
+    { key: "75", text: "75" },
+    { key: "97.5", text: "97.5" },
+];
+
+const contactOptions = [
+    { key: "50", text: "50% contact" },
+    { key: "75", text: "75% contact" },
+    { key: "100", text: "No intervention" },
 ];
 
 export function Map() {
@@ -49,7 +61,7 @@ export function Map() {
         })();
     }, [field, contact]);
 
-    const typeText = types.find(({ value }) => value === type)?.text;
+    const typeText = typeOptions.find(({ key }) => key === type)?.text;
     const dateData = data?.data.find(d => d[0] === date) || [];
     const series = [...(dateData[1] || [])];
     const maxValue = data?.maxValue || 0;
@@ -89,52 +101,33 @@ export function Map() {
     return (
         <div className="map">
             <div className="map-controls">
-                <label>
-                    <div className="label-title">Type</div>
-                    <select
-                        className="map-control"
-                        value={type}
-                        onChange={e => setType(e.target.value)}
-                    >
-                        {types.map(({ value, text }) => (
-                            <option value={value} key={value}>
-                                {text}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <div className="label-title">Percentile</div>
-                    <select
-                        className="map-control"
-                        value={percentile}
-                        onChange={e => setPercentile(e.target.value)}
-                    >
-                        <option value="2.5">2.5</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="75">75</option>
-                        <option value="97.5">97.5</option>
-                    </select>
-                </label>
-                <label>
-                    <div className="label-title">Social Distancing</div>
-                    <select
-                        className="map-control"
-                        value={contact}
-                        onChange={e => setContact(e.target.value)}
-                    >
-                        {[
-                            { val: "50", text: "50% contact" },
-                            { val: "75", text: "75% contact" },
-                            { val: "100", text: "No intervention" },
-                        ].map(({ val, text }) => (
-                            <option value={val} key={val}>
-                                {text}
-                            </option>
-                        ))}
-                    </select>
-                </label>
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={100}
+                    styles={{ dropdown: { width: 100 } }}
+                    selectedKey={type}
+                    options={typeOptions}
+                    label="Type"
+                    onChange={(e, item) => setType(item?.key as string)}
+                />
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={100}
+                    styles={{ dropdown: { width: 100 } }}
+                    selectedKey={percentile}
+                    options={percentileOptions}
+                    label="Percentile"
+                    onChange={(e, item) => setPercentile(item?.key as string)}
+                />
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={150}
+                    styles={{ dropdown: { width: 150 } }}
+                    selectedKey={contact}
+                    options={contactOptions}
+                    label="Social Distancing"
+                    onChange={(e, item) => setContact(item?.key as string)}
+                />
             </div>
             <HighchartsReact
                 highcharts={Highcharts}
@@ -144,12 +137,10 @@ export function Map() {
             <div className="date-control">
                 <div className="date-text-row">
                     <div className="date-text">Date: {date}</div>
-                    <button
-                        className="btn"
+                    <CommandButton
+                        iconProps={{ iconName: playing ? "Pause" : "Play" }}
                         onClick={() => setPlaying(prev => !prev)}
-                    >
-                        <FontAwesomeIcon icon={playing ? faPause : faPlay} />
-                    </button>
+                    />
                 </div>
                 <Slider
                     min={0}
