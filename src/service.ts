@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IStackedChart } from "./stackedchart/IStackedChart";
+import { StackedChartData } from "./stackedchart/StackedChartData";
 import { MapData } from "./type";
 
 const backendUrl = `${window.location.protocol}//${window.location.hostname}:6789`;
@@ -26,8 +26,8 @@ export const getDates = async () => {
 
 export const getStackedChart = async (options: {
     contact: string;
-    resourceType: string;
-}): Promise<IStackedChart[] | undefined> => {
+    type: string;
+}): Promise<StackedChartData[] | undefined> => {
     try {
         const response = await axios.get(`${backendUrl}/stackedchart`, {
             params: options

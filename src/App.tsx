@@ -6,8 +6,11 @@ import StackedChart from "./stackedchart/StackedChart";
 function App() {
     return (
         <div className="App">
-            <Map />
-            <StackedChart />
+            <div className="container">
+                <div className="app-header">COVID-19 Projection</div>
+                <Map />
+                <StackedChart />
+            </div>
         </div>
     );
 }

@@ -2,15 +2,31 @@ import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
 import { mapData } from "../us";
 import { getMap, getDates } from "../service";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./map.sass";
 import { MapData } from "../type";
+import { useInterval } from "../util";
+import { Slider, Dropdown, CommandButton } from "@fluentui/react";
 
-const types = [
-    { value: "hosp_need", text: "Bed" },
-    { value: "ICU_need", text: "ICU" },
-    { value: "vent_need", text: "Ventilator" },
-    { value: "death", text: "Death" },
+const typeOptions = [
+    { key: "hosp_need", text: "Bed" },
+    { key: "ICU_need", text: "ICU" },
+    { key: "vent_need", text: "Ventilator" },
+    { key: "death", text: "Death" },
+];
+
+const percentileOptions = [
+    { key: "2.5", text: "2.5" },
+    { key: "25", text: "25" },
+    { key: "50", text: "50" },
+    { key: "75", text: "75" },
+    { key: "97.5", text: "97.5" },
+];
+
+const contactOptions = [
+    { key: "50", text: "50% contact" },
+    { key: "75", text: "75% contact" },
+    { key: "100", text: "No intervention" },
 ];
 
 export function Map() {
@@ -20,8 +36,15 @@ export function Map() {
     const [contact, setContact] = useState<string>("50");
     const [dates, setDates] = useState<string[]>([]);
     const [dateIndex, setDateIndex] = useState<number>(0);
+    const [playing, setPlaying] = useState(true);
     const field = `${type}_${percentile}`;
     const date = dates[dateIndex];
+    useInterval(
+        () => {
+            setDateIndex(prev => (prev + 1) % dates.length);
+        },
+        playing ? 500 : null
+    );
 
     useEffect(() => {
         (async () => {
@@ -34,20 +57,31 @@ export function Map() {
     useEffect(() => {
         (async () => {
             setData(await getMap({ field, contact }));
+            setDateIndex(0);
         })();
     }, [field, contact]);
 
-    const typeText = types.find(({ value }) => value === type)?.text;
+    const typeText = typeOptions.find(({ key }) => key === type)?.text;
     const dateData = data?.data.find(d => d[0] === date) || [];
     const series = [...(dateData[1] || [])];
+    const maxValue = data?.maxValue || 0;
     const options: Highcharts.Options = {
         title: {
-            text: "COVID-19 Projection",
+            text: "",
         },
-
+        chart: {
+            backgroundColor: "#F7F7F7",
+            height: 500,
+            borderRadius: 5,
+        },
         colorAxis: {
             min: 0,
-            max: data?.maxValue,
+            max: maxValue,
+            stops: [
+                [0, "#FFFFFF"],
+                [0.5, "#FFA500"],
+                [1, "#65000b"],
+            ],
         },
 
         series: [
@@ -55,56 +89,46 @@ export function Map() {
                 mapData: mapData,
                 name: typeText,
                 data: series,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.name}",
+                },
             } as any,
         ],
+        responsive: {
+            rules: [],
+        },
     };
     return (
         <div className="map">
             <div className="map-controls">
-                <label>
-                    <div className="label-title">Type</div>
-                    <select
-                        className="map-control"
-                        value={type}
-                        onChange={e => setType(e.target.value)}
-                    >
-                        {types.map(({ value, text }) => (
-                            <option value={value}>{text}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <div className="label-title">Percentile</div>
-                    <select
-                        className="map-control"
-                        value={percentile}
-                        onChange={e => setPercentile(e.target.value)}
-                    >
-                        <option value="2.5">2.5</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="75">75</option>
-                        <option value="97.5">97.5</option>
-                    </select>
-                </label>
-                <label>
-                    <div className="label-title">Social Distancing</div>
-                    <select
-                        className="map-control"
-                        value={contact}
-                        onChange={e => setContact(e.target.value)}
-                    >
-                        {[
-                            { val: "50", text: "50% contact" },
-                            { val: "75", text: "75% contact" },
-                            { val: "100", text: "No intervention" },
-                        ].map(({ val, text }) => (
-                            <option value={val} key={val}>
-                                {text}
-                            </option>
-                        ))}
-                    </select>
-                </label>
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={100}
+                    styles={{ dropdown: { width: 100 } }}
+                    selectedKey={type}
+                    options={typeOptions}
+                    label="Type"
+                    onChange={(e, item) => setType(item?.key as string)}
+                />
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={100}
+                    styles={{ dropdown: { width: 100 } }}
+                    selectedKey={percentile}
+                    options={percentileOptions}
+                    label="Percentile"
+                    onChange={(e, item) => setPercentile(item?.key as string)}
+                />
+                <Dropdown
+                    className="map-control"
+                    dropdownWidth={150}
+                    styles={{ dropdown: { width: 150 } }}
+                    selectedKey={contact}
+                    options={contactOptions}
+                    label="Social Distancing"
+                    onChange={(e, item) => setContact(item?.key as string)}
+                />
             </div>
             <HighchartsReact
                 highcharts={Highcharts}
@@ -112,14 +136,21 @@ export function Map() {
                 constructorType={"mapChart"}
             />
             <div className="date-control">
-                <div className="date-text">Date: {date}</div>
-                <input
-                    type="range"
+                <div className="date-text-row">
+                    <div className="date-text">Date: {date}</div>
+                    <CommandButton
+                        iconProps={{ iconName: playing ? "Pause" : "Play" }}
+                        onClick={() => setPlaying(prev => !prev)}
+                    />
+                </div>
+                <Slider
                     min={0}
                     max={dates.length - 1}
                     className="date-slider"
                     value={dateIndex}
-                    onChange={e => setDateIndex(+e.target.value)}
+                    onChange={setDateIndex}
+                    showValue={false}
+                    snapToStep
                 />
             </div>
         </div>

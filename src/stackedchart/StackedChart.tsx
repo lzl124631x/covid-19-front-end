@@ -5,12 +5,13 @@ import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import more from 'highcharts/highcharts-more';
 import { getStackedChart } from '../service';
-import { IStackedChart } from './IStackedChart';
+import { StackedChartData, StackedChartDataForHiChart } from './StackedChartData';
 import "./StackedChart.css";
+import { toHighChartData } from '../util';
 more(Highcharts);
 
 
-const optionsDeletgate = (stackedChartData: IStackedChart): Highcharts.Options => {
+const optionsDeletgate = (stackedChartData: StackedChartDataForHiChart): Highcharts.Options => {
     return {
         chart: {
             type: 'areaspline'
@@ -30,11 +31,6 @@ const optionsDeletgate = (stackedChartData: IStackedChart): Highcharts.Options =
         },
         xAxis: {
             categories: stackedChartData.categories,
-            plotBands: [{ // visualize the weekend
-                from: 4.5,
-                to: 6.5,
-                color: 'rgba(68, 170, 213, .2)'
-            }],
             title: {
                 text: stackedChartData.xAxisLabel,
             }
@@ -56,7 +52,7 @@ const optionsDeletgate = (stackedChartData: IStackedChart): Highcharts.Options =
                 fillOpacity: 0.1
             }
         },
-        series: stackedChartData.series as any
+        series: stackedChartData.charts as any
     }
 }
 
@@ -67,7 +63,7 @@ interface IStackedChartProps {
 interface IStackedChartState {
     options: Highcharts.Options;
     percentile: string;
-    resourceType: string;
+    type: string;
 }
 
 export default class StackedChart extends
@@ -78,7 +74,7 @@ export default class StackedChart extends
         this.state = {
             options: {},
             percentile: "50",
-            resourceType: "beds",
+            type: "beds",
         }
     }
     public async componentDidMount() {
@@ -90,7 +86,7 @@ export default class StackedChart extends
             return <div> Loading </div>;
         }
         else {
-            return (<div className="chart-container" style={{ width: "50%" }}>
+            return (<div className="chart-container">
                 <div className="intervention-selection">
                     <select
                         className="map-control"
@@ -103,8 +99,8 @@ export default class StackedChart extends
                     </select>
                     <select
                         className="map-control"
-                        value={this.state.resourceType}
-                        onChange={e => this.setResourceType(e.target.value)}
+                        value={this.state.type}
+                        onChange={e => this.setType(e.target.value)}
                     >
                         <option value="beds">Bed</option>
                         <option value="icus">ICU</option>
@@ -123,10 +119,10 @@ export default class StackedChart extends
     private async loadData() {
         const data = await getStackedChart({
             contact: this.state.percentile,
-            resourceType: this.state.resourceType
+            type: this.state.type
         });
         if (data != null) {
-            const options = optionsDeletgate(data[0]);
+            const options = optionsDeletgate(toHighChartData(data[0]));
             this.setState({ options });
         }
     }
@@ -135,7 +131,7 @@ export default class StackedChart extends
         this.setState({ percentile }, this.loadData);
     }
 
-    private setResourceType(resourceType: string) {
-        this.setState({ resourceType }, this.loadData);
+    private setType(resourceType: string) {
+        this.setState({ type: resourceType }, this.loadData);
     }
 }
