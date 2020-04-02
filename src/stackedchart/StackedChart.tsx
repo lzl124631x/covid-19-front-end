@@ -1,12 +1,10 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
-import { render } from 'react-dom';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import more from 'highcharts/highcharts-more';
 import { getStackedChart } from '../service';
-import { StackedChartData, StackedChartDataForHiChart } from './StackedChartData';
-import "./StackedChart.css";
+import { StackedChartDataForHiChart } from './StackedChartData';
+import "./StackedChart.sass";
 import { toHighChartData } from '../util';
 more(Highcharts);
 
