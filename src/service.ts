@@ -1,17 +1,14 @@
 import axios from "axios";
+import { MapData } from "./type";
 
 const backendUrl = `${window.location.protocol}//${window.location.hostname}:6789`;
 
-export const getMap = async (options: {
-    date: string;
-    field: string;
-    contact: string;
-}) => {
+export const getMap = async (options: { field: string; contact: string }) => {
     try {
         const response = await axios.get(`${backendUrl}/map`, {
             params: options
         });
-        return response.data;
+        return response.data as MapData;
     } catch (err) {
         alert(err);
     }

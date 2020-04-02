@@ -4,16 +4,17 @@ import { mapData } from "../us";
 import { getMap, getDates } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
+import { MapData } from "../type";
 
 const types = [
     { value: "hosp_need", text: "Bed" },
     { value: "ICU_need", text: "ICU" },
     { value: "vent_need", text: "Ventilator" },
-    { value: "death", text: "Death" }
+    { value: "death", text: "Death" },
 ];
 
 export function Map() {
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<MapData>();
     const [type, setType] = useState<string>("hosp_need");
     const [percentile, setPercentile] = useState<string>("50");
     const [contact, setContact] = useState<string>("50");
@@ -32,28 +33,30 @@ export function Map() {
 
     useEffect(() => {
         (async () => {
-            setData(await getMap({ date, field, contact }));
+            setData(await getMap({ field, contact }));
         })();
-    }, [field, date, contact]);
+    }, [field, contact]);
 
     const typeText = types.find(({ value }) => value === type)?.text;
-
+    const dateData = data?.data.find(d => d[0] === date) || [];
+    const series = [...(dateData[1] || [])];
     const options: Highcharts.Options = {
         title: {
-            text: "COVID-19 Projection"
+            text: "COVID-19 Projection",
         },
 
         colorAxis: {
-            min: 0
+            min: 0,
+            max: data?.maxValue,
         },
 
         series: [
             {
                 mapData: mapData,
                 name: typeText,
-                data: data
-            } as any
-        ]
+                data: series,
+            } as any,
+        ],
     };
     return (
         <div className="map">
@@ -94,7 +97,7 @@ export function Map() {
                         {[
                             { val: "50", text: "50% contact" },
                             { val: "75", text: "75% contact" },
-                            { val: "100", text: "No intervention" }
+                            { val: "100", text: "No intervention" },
                         ].map(({ val, text }) => (
                             <option value={val} key={val}>
                                 {text}
