@@ -5,7 +5,8 @@ import { getMap, getDates } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
 import { MapData } from "../type";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 const types = [
     { value: "hosp_need", text: "Bed" },
     { value: "ICU_need", text: "ICU" },
@@ -114,7 +115,12 @@ export function Map() {
                 constructorType={"mapChart"}
             />
             <div className="date-control">
-                <div className="date-text">Date: {date}</div>
+                <div className="date-text-row">
+                    <div className="date-text">Date: {date}</div>
+                    <button className="btn">
+                        <FontAwesomeIcon icon={faPlay} />
+                    </button>
+                </div>
                 <input
                     type="range"
                     min={0}
