@@ -2,11 +2,13 @@ import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
 import { mapData } from "../us";
 import { getMap, getDates } from "../service";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./map.sass";
 import { MapData } from "../type";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { useInterval } from "../util";
+
 const types = [
     { value: "hosp_need", text: "Bed" },
     { value: "ICU_need", text: "ICU" },
@@ -21,8 +23,15 @@ export function Map() {
     const [contact, setContact] = useState<string>("50");
     const [dates, setDates] = useState<string[]>([]);
     const [dateIndex, setDateIndex] = useState<number>(0);
+    const [playing, setPlaying] = useState(true);
     const field = `${type}_${percentile}`;
     const date = dates[dateIndex];
+    useInterval(
+        () => {
+            setDateIndex(prev => (prev + 1) % dates.length);
+        },
+        playing ? 500 : null
+    );
 
     useEffect(() => {
         (async () => {
@@ -35,6 +44,7 @@ export function Map() {
     useEffect(() => {
         (async () => {
             setData(await getMap({ field, contact }));
+            setDateIndex(0);
         })();
     }, [field, contact]);
 
@@ -117,8 +127,11 @@ export function Map() {
             <div className="date-control">
                 <div className="date-text-row">
                     <div className="date-text">Date: {date}</div>
-                    <button className="btn">
-                        <FontAwesomeIcon icon={faPlay} />
+                    <button
+                        className="btn"
+                        onClick={() => setPlaying(prev => !prev)}
+                    >
+                        <FontAwesomeIcon icon={playing ? faPause : faPlay} />
                     </button>
                 </div>
                 <input
