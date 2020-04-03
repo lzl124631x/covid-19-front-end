@@ -15,11 +15,6 @@
     width: 50em
     max-width: 100vw
     padding: $space-md
-    .map-controls
-        padding: $space-sm 0
-        .map-control
-            margin: 0 $space-xs
-            display: inline-block
     .date-control
         margin: $space-md 0
         color: $color-text
@@ -29,6 +24,8 @@
             .date-text
                 font-size: .9em
                 @extend .flex-item-auto
+            .toggle-autoplay
+                cursor: pointer
 
         .date-slider
             cursor: pointer

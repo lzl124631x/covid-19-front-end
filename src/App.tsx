@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.sass";
 import { Map } from "./map/map";
 import StackedChart from "./stackedchart/StackedChart";
@@ -26,83 +26,64 @@ const contactOptions = [
     { key: "100", text: "No intervention" },
 ];
 
-export class App extends React.Component<{}, AppState> {
-    public constructor(props: {}) {
-        super(props);
-        this.state = {
-            contact: "50",
-            type: "hosp_need",
-            fipsKeyForState: "53",
-            fipsOptions: [],
+export function App() {
+    const [type, setType] = useState<string>("hosp_need");
+    const [contact, setContact] = useState<string>("50");
+    const [fipsKeyForState, setFipsKeyForState] = useState<string>("53");
+    const [fipsOptions, setFipsOptions] = useState<IDropdownOption[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const fipsData = await getFipsData();
+            if (fipsData != null) {
+                setFipsOptions(toFipsOptions(fipsData));
+            }
         };
-    }
+        fetchData();
+    }, []);
 
-    public async componentDidMount() {
-        const data = await getFipsData();
-        if (data != null) {
-            const fipsOptions = toFipsOptions(data);
-            this.setState({ fipsOptions });
-        }
-    }
-
-    public render() {
-        return (
-            <div className="App">
-                <div className="container">
-                    <div className="app-header">COVID-19 Projection</div>
-                    <div>
-                        <Dropdown
-                            dropdownWidth={100}
-                            styles={{ dropdown: { width: 100 } }}
-                            selectedKey={this.state.fipsKeyForState}
-                            options={this.state.fipsOptions}
-                            label="State"
-                            onChange={(e, item) =>
-                                this.setFipsKeyForState(item?.key as string)
-                            }
-                        />
-                        <Dropdown
-                            dropdownWidth={100}
-                            styles={{ dropdown: { width: 100 } }}
-                            selectedKey={this.state.type}
-                            options={typeOptions}
-                            label="Type"
-                            onChange={(e, item) =>
-                                this.setType(item?.key as string)
-                            }
-                        />
-                        <Dropdown
-                            dropdownWidth={100}
-                            styles={{ dropdown: { width: 100 } }}
-                            selectedKey={this.state.contact}
-                            options={contactOptions}
-                            label="Social Distancing"
-                            onChange={(e, item) =>
-                                this.setContact(item?.key as string)
-                            }
-                        />
-                    </div>
-                    <Map/>
-                    <StackedChart
-                        type={this.state.type}
-                        contact={this.state.contact}
-                        fipsKeyForState={this.state.fipsKeyForState}
+    return (
+        <div className="App">
+            <div className="container">
+                <div className="app-header">COVID-19 Projection</div>
+                <div className="app-controls">
+                    <Dropdown
+                        className="app-control"
+                        dropdownWidth={100}
+                        styles={{ dropdown: { width: 100 } }}
+                        selectedKey={fipsKeyForState}
+                        options={fipsOptions}
+                        label="State"
+                        onChange={(e, item) =>
+                            setFipsKeyForState(item?.key as string)
+                        }
+                    />
+                    <Dropdown
+                        className="app-control"
+                        dropdownWidth={100}
+                        styles={{ dropdown: { width: 100 } }}
+                        selectedKey={type}
+                        options={typeOptions}
+                        label="Type"
+                        onChange={(e, item) => setType(item?.key as string)}
+                    />
+                    <Dropdown
+                        className="app-control"
+                        dropdownWidth={150}
+                        styles={{ dropdown: { width: 150 } }}
+                        selectedKey={contact}
+                        options={contactOptions}
+                        label="Social Distancing"
+                        onChange={(e, item) => setContact(item?.key as string)}
                     />
                 </div>
+                <Map type={type} contact={contact} />
+                <StackedChart
+                    type={type}
+                    contact={contact}
+                    fipsKeyForState={fipsKeyForState}
+                />
             </div>
-        );
-    }
-
-    private setFipsKeyForState(fipsKeyForState: string) {
-        console.log(fipsKeyForState);
-        this.setState({ fipsKeyForState });
-    }
-
-    private setContact(contact: string) {
-        this.setState({ contact });
-    }
-
-    private setType(type: string) {
-        this.setState({ type });
-    }
+        </div>
+    );
 }

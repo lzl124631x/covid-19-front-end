@@ -12,13 +12,18 @@ body,
     margin: 0 auto
   .app-header
     padding: $space-md
+    padding-bottom: $space-sm
     font-size: 4em
     text-align: center
+  .app-controls
+    padding: $space-sm $space-md
+    .app-control
+      margin: 0 $space-xs
+      display: inline-block
 
 @media only screen and (max-width: 800px)
   .App .app-header
     font-size: 3em
-    padding-bottom: $space-sm
 
 @media only screen and (max-width: 600px)
   .App .app-header
