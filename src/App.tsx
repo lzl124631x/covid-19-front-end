@@ -4,7 +4,7 @@ import { Map } from "./map/map";
 import StackedChart from "./stackedchart/StackedChart";
 import { Dropdown } from "@fluentui/react";
 
-const stateNameOptions = [
+const stateCodeOptions = [
     { text: "Alabama ", key: "AL" },
     { text: "Alaska ", key: "AK" },
     { text: "American Samoa ", key: "AS" },
@@ -96,7 +96,7 @@ const contactOptions = [
 export function App() {
     const [type, setType] = useState<string>("hosp_need");
     const [contact, setContact] = useState<string>("50");
-    const [stateName, setStatename] = useState<string>("WA");
+    const [stateCode, setStateCode] = useState<string>("WA");
 
     return (
         <div className="App">
@@ -107,11 +107,11 @@ export function App() {
                         className="app-control"
                         dropdownWidth={100}
                         styles={{ dropdown: { width: 100 } }}
-                        selectedKey={stateName}
-                        options={stateNameOptions}
+                        selectedKey={stateCode}
+                        options={stateCodeOptions}
                         label="State"
                         onChange={(e, item) =>
-                            setStatename(item?.key as string)
+                            setStateCode(item?.key as string)
                         }
                     />
                     <Dropdown
@@ -137,7 +137,7 @@ export function App() {
                 <StackedChart
                     type={type}
                     contact={contact}
-                    stateName={stateName}
+                    stateCode={stateCode}
                 />
             </div>
         </div>

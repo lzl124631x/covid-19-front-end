@@ -27,7 +27,7 @@ export const getDates = async () => {
 export const getStackedChart = async (options: {
     contact: string;
     type: string;
-    stateName: string;
+    stateCode: string;
 }): Promise<StackedChartData[] | undefined> => {
     try {
         const response = await axios.get(`${backendUrl}/stacked-chart`, {

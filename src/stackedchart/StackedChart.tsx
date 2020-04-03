@@ -64,7 +64,7 @@ const optionsDeletgate = (
 interface IStackedChartProps {
     type: string;
     contact: string;
-    stateName: string;
+    stateCode: string;
 }
 
 interface IStackedChartState {
@@ -91,7 +91,7 @@ export default class StackedChart extends React.Component<
     public async componentDidUpdate(oldProps: IStackedChartProps) {
         if (
             this.props.contact != oldProps.contact ||
-            this.props.stateName != oldProps.stateName ||
+            this.props.stateCode != oldProps.stateCode ||
             this.props.type != oldProps.type
         ) {
             this.loadData();
@@ -127,11 +127,11 @@ export default class StackedChart extends React.Component<
         const data = await getStackedChart({
             contact: this.props.contact,
             type: this.props.type,
-            stateName: this.props.stateName,
+            stateCode: this.props.stateCode,
         });
         if (data != null && data[0] != null && data[0].xAxisData.length > 0) {
             const options = optionsDeletgate(toHighChartData(data[0]));
-            this.setState({ options });
+            this.setState({ options, displayNoDataMessage: false });
         } else {
             this.setState({ displayNoDataMessage: true });
         }
