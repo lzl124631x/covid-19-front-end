@@ -117,6 +117,7 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
                         offText="Off"
                         checked={playing}
                         onChange={(e, checked) => setPlaying(!!checked)}
+                        styles={{ root: { marginBottom: 0 } }}
                     />
                 </div>
                 <Slider
