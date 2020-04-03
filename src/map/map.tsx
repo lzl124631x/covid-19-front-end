@@ -89,6 +89,10 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
                     },
                 },
                 cursor: "pointer",
+                tooltip: {
+                    footerFormat:
+                        '<span style="font-size: 10px">(Click to see projection for this state)</span>',
+                },
             } as any,
         ],
         responsive: {
