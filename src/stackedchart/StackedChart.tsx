@@ -6,7 +6,12 @@ import { getStackedChart } from "../service";
 import { StackedChartDataForHiChart } from "./StackedChartData";
 import "./StackedChart.sass";
 import { toHighChartData } from "../util";
-import { Spinner, SpinnerSize } from "@fluentui/react";
+import {
+    Spinner,
+    SpinnerSize,
+    MessageBar,
+    MessageBarType,
+} from "@fluentui/react";
 more(Highcharts);
 
 const optionsDeletgate = (
@@ -59,10 +64,12 @@ const optionsDeletgate = (
 interface IStackedChartProps {
     type: string;
     contact: string;
+    stateCode: string;
 }
 
 interface IStackedChartState {
     options: Highcharts.Options;
+    displayNoDataMessage: boolean;
 }
 
 export default class StackedChart extends React.Component<
@@ -73,21 +80,40 @@ export default class StackedChart extends React.Component<
         super(props);
         this.state = {
             options: {},
+            displayNoDataMessage: false,
         };
     }
+
     public async componentDidMount() {
         await this.loadData();
     }
+
+    public async componentDidUpdate(oldProps: IStackedChartProps) {
+        if (
+            this.props.contact != oldProps.contact ||
+            this.props.stateCode != oldProps.stateCode ||
+            this.props.type != oldProps.type
+        ) {
+            this.loadData();
+        }
+    }
+
     public render() {
         const options = this.state.options;
-        if (Object.keys(options).length == 0) {
+        if (this.state.displayNoDataMessage) {
+            return <MessageBar
+                    className="message-bar"
+                    messageBarType={MessageBarType.success}
+                    dismissButtonAriaLabel="Close"
+                >
+                    There are no entries for this selection, please try another
+                </MessageBar>;
+        } else if (Object.keys(options).length == 0) {
             return <Spinner size={SpinnerSize.medium} />;
         } else {
             return (
                 <div className="chart-container">
-                    <div className="intervention-selection">
-                        
-                    </div>
+                    <div className="intervention-selection"></div>
                     <HighchartsReact
                         highcharts={Highcharts}
                         options={options}
@@ -101,10 +127,13 @@ export default class StackedChart extends React.Component<
         const data = await getStackedChart({
             contact: this.props.contact,
             type: this.props.type,
+            stateCode: this.props.stateCode,
         });
-        if (data != null) {
+        if (data != null && data[0] != null && data[0].xAxisData.length > 0) {
             const options = optionsDeletgate(toHighChartData(data[0]));
-            this.setState({ options });
+            this.setState({ options, displayNoDataMessage: false });
+        } else {
+            this.setState({ displayNoDataMessage: true });
         }
     }
 }
