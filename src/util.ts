@@ -3,8 +3,6 @@ import {
     StackedChartData,
     StackedChartDataForHiChart,
 } from "./stackedchart/StackedChartData";
-import { FipsData } from "./models/fipsdata";
-import { IDropdownOption } from "@fluentui/react";
 
 export function useInterval(callback: () => void, delay: number | null) {
     const cb = useRef<() => void>();
@@ -26,13 +24,4 @@ export function toHighChartData(
         categories: data.xAxisData,
     };
     return output;
-}
-
-export function toFipsOptions(data: FipsData[]): IDropdownOption[] {
-    return data.map(row => {
-        return {
-            key: row.fipsCode,
-            text: row.stateCode
-        }
-    })
 }
