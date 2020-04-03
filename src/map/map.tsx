@@ -4,16 +4,10 @@ import { mapData } from "../us";
 import { getMap, getDates } from "../service";
 import React, { useEffect, useState, useRef } from "react";
 import "./map.sass";
-import { MapData } from "../type";
+import { MapData, MapProps } from "../type";
 import { useInterval } from "../util";
 import { Slider, Dropdown, CommandButton } from "@fluentui/react";
-
-const typeOptions = [
-    { key: "hosp_need", text: "Bed" },
-    { key: "ICU_need", text: "ICU" },
-    { key: "vent_need", text: "Ventilator" },
-    { key: "death", text: "Death" },
-];
+import { typeOptions } from "../constants";
 
 const percentileOptions = [
     { key: "2.5", text: "2.5" },
@@ -23,17 +17,10 @@ const percentileOptions = [
     { key: "97.5", text: "97.5" },
 ];
 
-const contactOptions = [
-    { key: "50", text: "50% contact" },
-    { key: "75", text: "75% contact" },
-    { key: "100", text: "No intervention" },
-];
-
-export function Map() {
+export function Map({ type, contact }: MapProps) {
     const [data, setData] = useState<MapData>();
-    const [type, setType] = useState<string>("hosp_need");
-    const [percentile, setPercentile] = useState<string>("50");
-    const [contact, setContact] = useState<string>("50");
+    const percentile = "50"; // Hiding percentile for map for now
+    // const [percentile, setPercentile] = useState<string>("50");
     const [dates, setDates] = useState<string[]>([]);
     const [dateIndex, setDateIndex] = useState<number>(0);
     const [playing, setPlaying] = useState(true);
@@ -101,35 +88,6 @@ export function Map() {
     };
     return (
         <div className="map">
-            <div className="map-controls">
-                <Dropdown
-                    className="map-control"
-                    dropdownWidth={100}
-                    styles={{ dropdown: { width: 100 } }}
-                    selectedKey={type}
-                    options={typeOptions}
-                    label="Type"
-                    onChange={(e, item) => setType(item?.key as string)}
-                />
-                <Dropdown
-                    className="map-control"
-                    dropdownWidth={100}
-                    styles={{ dropdown: { width: 100 } }}
-                    selectedKey={percentile}
-                    options={percentileOptions}
-                    label="Percentile"
-                    onChange={(e, item) => setPercentile(item?.key as string)}
-                />
-                <Dropdown
-                    className="map-control"
-                    dropdownWidth={150}
-                    styles={{ dropdown: { width: 150 } }}
-                    selectedKey={contact}
-                    options={contactOptions}
-                    label="Social Distancing"
-                    onChange={(e, item) => setContact(item?.key as string)}
-                />
-            </div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
