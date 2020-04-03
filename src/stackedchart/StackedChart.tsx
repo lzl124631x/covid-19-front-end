@@ -12,6 +12,7 @@ import {
     MessageBar,
     MessageBarType,
 } from "@fluentui/react";
+import { stateCodeOptions } from "../constants";
 more(Highcharts);
 
 const optionsDeletgate = (
@@ -101,18 +102,27 @@ export default class StackedChart extends React.Component<
     public render() {
         const options = this.state.options;
         if (this.state.displayNoDataMessage) {
-            return <MessageBar
+            return (
+                <MessageBar
                     className="message-bar"
                     messageBarType={MessageBarType.success}
                     dismissButtonAriaLabel="Close"
                 >
                     There are no entries for this selection, please try another
-                </MessageBar>;
+                </MessageBar>
+            );
         } else if (Object.keys(options).length == 0) {
             return <Spinner size={SpinnerSize.medium} />;
         } else {
             return (
                 <div className="chart-container">
+                    <div className="state-text">
+                        {
+                            stateCodeOptions.find(
+                                s => s.key === this.props.stateCode
+                            )?.text
+                        }
+                    </div>
                     <div className="intervention-selection"></div>
                     <HighchartsReact
                         highcharts={Highcharts}

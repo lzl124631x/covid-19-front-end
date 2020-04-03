@@ -4,12 +4,13 @@ import { mapData } from "../us";
 import { getMap, getDates } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
-import { MapData, MapProps } from "../type";
+import { MapData } from "../type";
 import { useInterval } from "../util";
 import { Slider, Toggle } from "@fluentui/react";
 import { typeOptions } from "../constants";
+import { MapProps } from "./type";
 
-export function Map({ type, contact }: MapProps) {
+export function Map({ type, contact, onStateClicked }: MapProps) {
     const [data, setData] = useState<MapData>();
     const percentile = "50"; // Hiding percentile for map for now
     // const [percentile, setPercentile] = useState<string>("50");
@@ -72,6 +73,22 @@ export function Map({ type, contact }: MapProps) {
                     enabled: true,
                     format: "{point.name}",
                 },
+                states: {
+                    hover: {
+                        // TODO: show effect when it's hovered.
+                    },
+                },
+                point: {
+                    events: {
+                        click: function() {
+                            const state = (this as any).properties[
+                                "postal-code"
+                            ];
+                            onStateClicked(state);
+                        },
+                    },
+                },
+                cursor: "pointer",
             } as any,
         ],
         responsive: {
