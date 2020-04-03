@@ -2,20 +2,12 @@ import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
 import { mapData } from "../us";
 import { getMap, getDates } from "../service";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./map.sass";
 import { MapData, MapProps } from "../type";
 import { useInterval } from "../util";
-import { Slider, Dropdown, CommandButton } from "@fluentui/react";
+import { Slider, Toggle } from "@fluentui/react";
 import { typeOptions } from "../constants";
-
-const percentileOptions = [
-    { key: "2.5", text: "2.5" },
-    { key: "25", text: "25" },
-    { key: "50", text: "50" },
-    { key: "75", text: "75" },
-    { key: "97.5", text: "97.5" },
-];
 
 export function Map({ type, contact }: MapProps) {
     const [data, setData] = useState<MapData>();
@@ -96,9 +88,14 @@ export function Map({ type, contact }: MapProps) {
             <div className="date-control">
                 <div className="date-text-row">
                     <div className="date-text">Date: {date}</div>
-                    <CommandButton
-                        iconProps={{ iconName: playing ? "Pause" : "Play" }}
-                        onClick={() => setPlaying(prev => !prev)}
+                    <Toggle
+                        className="toggle-autoplay"
+                        label="Autoplay"
+                        inlineLabel
+                        onText="On"
+                        offText="Off"
+                        checked={playing}
+                        onChange={(e, checked) => setPlaying(!!checked)}
                     />
                 </div>
                 <Slider
