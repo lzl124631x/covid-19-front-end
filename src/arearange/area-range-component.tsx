@@ -5,6 +5,7 @@ import HighchartsReact from "highcharts-react-official";
 import { getRangeData } from "../service";
 import { AreaRangeData } from "./area-range-data";
 import { toAreaRangeSeries } from "../util";
+import { typeOptions } from "../constants";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -33,13 +34,7 @@ const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
         },
 
         yAxis: {
-            type: "logarithmic",
             minorTickInterval: 0.1,
-            labels: {
-                formatter: function () {
-                    return Math.log10(this.value).toPrecision(3);
-                },
-            } as any,
             title: {
                 text: rangeData.chartingMetadata.yAxisLabel,
             },
@@ -92,8 +87,19 @@ export class AreaRangeComponent extends React.Component<AreaRangeProps, AreaRang
             stateCode: this.props.stateCode,
         });
         if (data != null) {
+            data.forEach( rangeData => this.populateChartingMetadata(rangeData, this.props.type, this.props.stateCode));
             const optionsForAllCharts = data.map(optionsDelegate);
             this.setState({ optionsForAllCharts });
         }
     }
+
+    private populateChartingMetadata(rangeData: AreaRangeData, type: string, stateCode: string): void {
+        const typeText = typeOptions.find(_ => _.key===type)?.text;
+        rangeData.chartingMetadata = {
+            title: `${typeText}s for ${100-parseInt(rangeData.intervention)}% intervention for state ${stateCode}`,
+            xAxisLabel: `Dates`,
+            yAxisLabel: `Number of ${type}s`,
+        }
+    }
+
 }
