@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./App.sass";
 import { Map } from "./map/map";
-import StackedChart from "./stackedchart/StackedChart";
 import { Dropdown } from "@fluentui/react";
-import { stateCodeOptions, typeOptions, contactOptions } from "./constants";
+import { typeOptions, contactOptions } from "./constants";
+import { AreaRangeComponent } from "./arearange/area-range-component";
 
 export function App() {
     const [type, setType] = useState<string>("hosp_need");
@@ -39,9 +39,9 @@ export function App() {
                     contact={contact}
                     onStateClicked={setStateCode}
                 />
-                <StackedChart
+                
+                <AreaRangeComponent
                     type={type}
-                    contact={contact}
                     stateCode={stateCode}
                 />
             </div>
