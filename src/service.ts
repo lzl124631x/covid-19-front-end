@@ -1,7 +1,7 @@
 import axios from "axios";
 import { StackedChartData } from "./stackedchart/StackedChartData";
 import { MapData } from "./type";
-import { RangeData } from "./arearange/range-data";
+import { AreaRangeData } from "./arearange/area-range-data";
 
 const backendUrl = `${window.location.protocol}//${window.location.hostname}:6789`;
 
@@ -41,10 +41,9 @@ export const getStackedChart = async (options: {
 };
 
 export const getRangeData = async (options: {
-    contact: string;
     type: string;
     stateCode: string;
-}): Promise<RangeData[] | undefined> => {
+}): Promise<AreaRangeData[] | undefined> => {
     try {
         const response = await axios.get(`${backendUrl}/range-timeseries-data`, {
             params: options

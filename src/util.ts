@@ -3,7 +3,7 @@ import {
     StackedChartData,
     StackedChartDataForHiChart,
 } from "./stackedchart/StackedChartData";
-import { RangeData } from "./arearange/range-data";
+import { AreaRangeData } from "./arearange/area-range-data";
 
 export function useInterval(callback: () => void, delay: number | null) {
     const cb = useRef<() => void>();
@@ -27,15 +27,18 @@ export function toHighChartData(
     return output;
 }
 
-export function toAreaRangeSeries(data: RangeData): any[] {
+export function toAreaRangeSeries(data: AreaRangeData): any[] {
     const output: any[] = [];
     const timeSeries = data.timeSeries;
+
+    // Zero's and sub zeros are not supported on a logarithmic scale, hence adjusting 0 to 1.
+    const fixZeros = (value: number) => value == 0 ? 1 : value;
     data.data.forEach((rangeData) => {
         const seriesData: any[] = [];
         const averageData: any[] = [];
         for (var i = 0; i < timeSeries.length - 1; i++) {
-            seriesData.push([timeSeries[i], rangeData.lower.value[i], rangeData.upper.value[i]]);
-            averageData.push([timeSeries[i], rangeData.average.value[i]]);
+            seriesData.push([timeSeries[i], fixZeros(rangeData.lower.value[i]), fixZeros(rangeData.upper.value[i])]);
+            averageData.push([timeSeries[i], fixZeros(rangeData.average.value[i])]);
         }
         const rangePlot = {
             name: `${rangeData.lower.id} - ${rangeData.upper.id}`,

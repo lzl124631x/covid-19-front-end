@@ -1,4 +1,4 @@
-export interface RangeData {
+export interface AreaRangeData {
     data: RangeDefinition[];
     timeSeries: number[];
     chartingMetadata: ChartingMetadata;

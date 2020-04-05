@@ -3,21 +3,20 @@ import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getRangeData } from "../service";
-import { RangeData } from "./range-data";
+import { AreaRangeData } from "./area-range-data";
 import { toAreaRangeSeries } from "../util";
 more(Highcharts);
 
 interface AreaRangeProps {
     type: string;
-    contact: string;
     stateCode: string;
 }
 
 interface AreaRangeState {
-    options: Highcharts.Options;
+    optionsForAllCharts: Highcharts.Options[];
 }
 
-const optionsDelegate = (rangeData: RangeData): Highcharts.Options => {
+const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
     return {
         title: {
             text: rangeData.chartingMetadata.title,
@@ -45,7 +44,7 @@ const optionsDelegate = (rangeData: RangeData): Highcharts.Options => {
                 text: rangeData.chartingMetadata.yAxisLabel,
             },
         },
-
+        
         tooltip: {
             crosshairs: true,
             shared: true,
@@ -55,11 +54,11 @@ const optionsDelegate = (rangeData: RangeData): Highcharts.Options => {
     };
 };
 
-export class AreaRange extends React.Component<AreaRangeProps, AreaRangeState> {
+export class AreaRangeComponent extends React.Component<AreaRangeProps, AreaRangeState> {
     public constructor(props: AreaRangeProps) {
         super(props);
         this.state = {
-            options: {},
+            optionsForAllCharts: [],
         };
     }
     public async componentDidMount() {
@@ -68,7 +67,6 @@ export class AreaRange extends React.Component<AreaRangeProps, AreaRangeState> {
 
     public async componentDidUpdate(oldProps: AreaRangeProps) {
         if (
-            this.props.contact != oldProps.contact ||
             this.props.stateCode != oldProps.stateCode ||
             this.props.type != oldProps.type
         ) {
@@ -76,23 +74,26 @@ export class AreaRange extends React.Component<AreaRangeProps, AreaRangeState> {
         }
     }
     public render() {
-        return (
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={this.state.options}
-            />
-        );
+        return this.renderCharts(this.state.optionsForAllCharts);
+    }
+
+    private renderCharts(optionsList: Highcharts.Options[]): JSX.Element[] {
+        return optionsList.map(options => 
+        <HighchartsReact
+            key={options.title?.text}
+            highcharts={Highcharts}
+            options={options}
+        />)
     }
 
     private async loadData() {
         const data = await getRangeData({
-            contact: this.props.contact,
             type: this.props.type,
             stateCode: this.props.stateCode,
         });
         if (data != null) {
-            const options = optionsDelegate(data[0]);
-            this.setState({ options });
+            const optionsForAllCharts = data.map(optionsDelegate);
+            this.setState({ optionsForAllCharts });
         }
     }
 }
