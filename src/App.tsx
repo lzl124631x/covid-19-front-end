@@ -4,6 +4,7 @@ import { Map } from "./map/map";
 import StackedChart from "./stackedchart/StackedChart";
 import { Dropdown } from "@fluentui/react";
 import { stateCodeOptions, typeOptions, contactOptions } from "./constants";
+import { AreaRange } from "./arearange/area-range";
 
 export function App() {
     const [type, setType] = useState<string>("hosp_need");
@@ -39,7 +40,8 @@ export function App() {
                     contact={contact}
                     onStateClicked={setStateCode}
                 />
-                <StackedChart
+                
+                <AreaRange
                     type={type}
                     contact={contact}
                     stateCode={stateCode}
