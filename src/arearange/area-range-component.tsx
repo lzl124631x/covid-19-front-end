@@ -46,6 +46,7 @@ const optionsDelegate = (
                 text: rangeData.chartingMetadata.yAxisLabel,
             },
             max: maxValue,
+            min: 0,
         },
 
         tooltip: {
