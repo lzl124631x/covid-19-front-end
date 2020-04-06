@@ -7,7 +7,6 @@ export interface AreaRangeData {
 }
 
 export interface ChartingMetadata {
-    xAxisLabel: string;
     yAxisLabel: string;
 }
 

@@ -39,8 +39,7 @@ export function toAreaRangeSeries(data: AreaRangeData): any[] {
                 data: averageData,
                 zIndex: 1,
                 marker: {
-                    fillColor: "white",
-                    lineWidth: 2,
+                    enabled: false,
                 },
             } as any;
             output.push(average);

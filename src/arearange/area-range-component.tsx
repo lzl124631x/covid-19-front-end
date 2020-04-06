@@ -6,6 +6,7 @@ import { getRangeData } from "../service";
 import { AreaRangeData } from "./area-range-data";
 import { toAreaRangeSeries } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
+import "./area-range.sass";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -34,9 +35,6 @@ const optionsDelegate = (
             dateTimeLabelFormats: {
                 day: "%e %b",
                 month: "%b%y",
-            },
-            title: {
-                text: rangeData.chartingMetadata.xAxisLabel,
             },
         },
 
@@ -151,7 +149,6 @@ export class AreaRangeComponent extends React.Component<
         type: string
     ): void {
         rangeData.chartingMetadata = {
-            xAxisLabel: `Dates`,
             yAxisLabel: `Number of ${type}s`,
         };
     }
