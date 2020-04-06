@@ -1,13 +1,12 @@
 export interface AreaRangeData {
     type: string;
-    intervention: string;
+    contact: string;
     data: RangeDefinition[];
     timeSeries: number[];
     chartingMetadata: ChartingMetadata;
 }
 
 export interface ChartingMetadata {
-    title: string;
     xAxisLabel: string;
     yAxisLabel: string;
 }

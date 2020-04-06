@@ -4,8 +4,8 @@ import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getRangeData } from "../service";
 import { AreaRangeData } from "./area-range-data";
-import { toAreaRangeSeries } from "../util";
-import { typeOptions } from "../constants";
+import { toAreaRangeSeries } from "./util";
+import { typeOptions, stateCodeOptions } from "../constants";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -18,9 +18,13 @@ interface AreaRangeState {
 }
 
 const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
+    const title =
+        rangeData.contact === "100"
+            ? "No intervention"
+            : rangeData.contact + "% contact";
     return {
         title: {
-            text: rangeData.chartingMetadata.title,
+            text: title,
         },
         xAxis: {
             type: "datetime",
@@ -39,46 +43,70 @@ const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
                 text: rangeData.chartingMetadata.yAxisLabel,
             },
         },
-        
+
         tooltip: {
             crosshairs: true,
             shared: true,
         } as any,
 
+        legend: {
+            enabled: false,
+        },
+
         series: toAreaRangeSeries(rangeData),
     };
 };
 
-export class AreaRangeComponent extends React.Component<AreaRangeProps, AreaRangeState> {
+export class AreaRangeComponent extends React.Component<
+    AreaRangeProps,
+    AreaRangeState
+> {
     public constructor(props: AreaRangeProps) {
         super(props);
         this.state = {
             optionsForAllCharts: [],
         };
     }
+
     public async componentDidMount() {
         await this.loadData();
     }
 
     public async componentDidUpdate(oldProps: AreaRangeProps) {
         if (
-            this.props.stateCode != oldProps.stateCode ||
-            this.props.type != oldProps.type
+            this.props.stateCode !== oldProps.stateCode ||
+            this.props.type !== oldProps.type
         ) {
             this.loadData();
         }
     }
+
     public render() {
         return this.renderCharts(this.state.optionsForAllCharts);
     }
 
-    private renderCharts(optionsList: Highcharts.Options[]): JSX.Element[] {
-        return optionsList.map(options => 
-        <HighchartsReact
-            key={options.title?.text}
-            highcharts={Highcharts}
-            options={options}
-        />)
+    private renderCharts(optionsList: Highcharts.Options[]): JSX.Element {
+        const typeText = typeOptions.find((_) => _.key === this.props.type)
+            ?.text;
+        const stateText = stateCodeOptions.find(
+            (s) => s.key === this.props.stateCode
+        )?.text;
+        return (
+            <div className="projections">
+                <div className="projection-title">
+                    Projection of {typeText} for {stateText}
+                </div>
+                <div className="projection-charts">
+                    {optionsList.map((options) => (
+                        <HighchartsReact
+                            key={options.title?.text}
+                            highcharts={Highcharts}
+                            options={options}
+                        />
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     private async loadData() {
@@ -86,20 +114,28 @@ export class AreaRangeComponent extends React.Component<AreaRangeProps, AreaRang
             type: this.props.type,
             stateCode: this.props.stateCode,
         });
-        if (data != null) {
-            data.forEach( rangeData => this.populateChartingMetadata(rangeData, this.props.type, this.props.stateCode));
+        if (data) {
+            data.forEach((rangeData) =>
+                this.populateChartingMetadata(
+                    rangeData,
+                    this.props.type,
+                    this.props.stateCode
+                )
+            );
             const optionsForAllCharts = data.map(optionsDelegate);
             this.setState({ optionsForAllCharts });
         }
     }
 
-    private populateChartingMetadata(rangeData: AreaRangeData, type: string, stateCode: string): void {
-        const typeText = typeOptions.find(_ => _.key===type)?.text;
+    private populateChartingMetadata(
+        rangeData: AreaRangeData,
+        type: string,
+        stateCode: string
+    ): void {
+        const typeText = typeOptions.find((_) => _.key === type)?.text;
         rangeData.chartingMetadata = {
-            title: `${typeText}s for ${100-parseInt(rangeData.intervention)}% intervention for state ${stateCode}`,
             xAxisLabel: `Dates`,
             yAxisLabel: `Number of ${type}s`,
-        }
+        };
     }
-
 }
