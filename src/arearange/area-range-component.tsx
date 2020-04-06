@@ -17,7 +17,10 @@ interface AreaRangeState {
     optionsForAllCharts: Highcharts.Options[];
 }
 
-const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
+const optionsDelegate = (
+    rangeData: AreaRangeData,
+    maxValue: number
+): Highcharts.Options => {
     const title =
         rangeData.contact === "100"
             ? "No intervention"
@@ -42,6 +45,7 @@ const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
             title: {
                 text: rangeData.chartingMetadata.yAxisLabel,
             },
+            max: maxValue,
         },
 
         tooltip: {
@@ -102,9 +106,11 @@ export class AreaRangeComponent extends React.Component<
                 </div>
                 <div className="projection-charts row">
                     {optionsList.map((options) => (
-                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div
+                            className="col-xs-12 col-sm-12 col-md-4 col-lg-4"
+                            key={options.title?.text}
+                        >
                             <HighchartsReact
-                                key={options.title?.text}
                                 highcharts={Highcharts}
                                 options={options}
                             />
@@ -121,24 +127,28 @@ export class AreaRangeComponent extends React.Component<
             stateCode: this.props.stateCode,
         });
         if (data) {
-            data.forEach((rangeData) =>
-                this.populateChartingMetadata(
-                    rangeData,
-                    this.props.type,
-                    this.props.stateCode
-                )
+            let maxValue = 0; // TODO(Sai): move the maxValue computation to backend
+            data.forEach((rangeData) => {
+                rangeData.data.forEach((x) =>
+                    x.upper.value.forEach(
+                        (v) => (maxValue = Math.max(maxValue, v))
+                    )
+                );
+            });
+            data.forEach((rangeData) => {
+                this.populateChartingMetadata(rangeData, this.props.type);
+            });
+            const optionsForAllCharts = data.map((d) =>
+                optionsDelegate(d, maxValue)
             );
-            const optionsForAllCharts = data.map(optionsDelegate);
             this.setState({ optionsForAllCharts });
         }
     }
 
     private populateChartingMetadata(
         rangeData: AreaRangeData,
-        type: string,
-        stateCode: string
+        type: string
     ): void {
-        const typeText = typeOptions.find((_) => _.key === type)?.text;
         rangeData.chartingMetadata = {
             xAxisLabel: `Dates`,
             yAxisLabel: `Number of ${type}s`,
