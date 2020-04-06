@@ -53,6 +53,10 @@ const optionsDelegate = (rangeData: AreaRangeData): Highcharts.Options => {
             enabled: false,
         },
 
+        credits: {
+            enabled: false,
+        },
+
         series: toAreaRangeSeries(rangeData),
     };
 };
@@ -96,13 +100,15 @@ export class AreaRangeComponent extends React.Component<
                 <div className="projection-title">
                     Projection of {typeText} for {stateText}
                 </div>
-                <div className="projection-charts">
+                <div className="projection-charts row">
                     {optionsList.map((options) => (
-                        <HighchartsReact
-                            key={options.title?.text}
-                            highcharts={Highcharts}
-                            options={options}
-                        />
+                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <HighchartsReact
+                                key={options.title?.text}
+                                highcharts={Highcharts}
+                                options={options}
+                            />
+                        </div>
                     ))}
                 </div>
             </div>

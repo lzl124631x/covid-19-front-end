@@ -4,6 +4,7 @@ import "./index.sass";
 import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { initializeIcons } from "@fluentui/react";
+import "flexboxgrid";
 
 initializeIcons();
 
