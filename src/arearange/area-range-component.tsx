@@ -18,14 +18,16 @@ interface AreaRangeState {
     optionsForAllCharts: Highcharts.Options[];
 }
 
-const optionsDelegate = (
+const createHighChartOptions = (
     rangeData: AreaRangeData,
-    maxValue: number
+    maxValue: number,
+    type: string
 ): Highcharts.Options => {
     const title =
         rangeData.contact === "100"
             ? "No intervention"
             : rangeData.contact + "% contact";
+    const typeText = typeOptions.find((_) => _.key === type)?.text;
     return {
         title: {
             text: title,
@@ -41,7 +43,7 @@ const optionsDelegate = (
         yAxis: {
             minorTickInterval: 0.1,
             title: {
-                text: rangeData.chartingMetadata.yAxisLabel,
+                text: typeText,
             },
             max: maxValue,
             min: 0,
@@ -134,22 +136,10 @@ export class AreaRangeComponent extends React.Component<
                     )
                 );
             });
-            data.forEach((rangeData) => {
-                this.populateChartingMetadata(rangeData, this.props.type);
-            });
             const optionsForAllCharts = data.map((d) =>
-                optionsDelegate(d, maxValue)
+                createHighChartOptions(d, maxValue, this.props.type)
             );
             this.setState({ optionsForAllCharts });
         }
-    }
-
-    private populateChartingMetadata(
-        rangeData: AreaRangeData,
-        type: string
-    ): void {
-        rangeData.chartingMetadata = {
-            yAxisLabel: `Number of ${type}s`,
-        };
     }
 }

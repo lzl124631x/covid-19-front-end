@@ -3,11 +3,6 @@ export interface AreaRangeData {
     contact: string;
     data: RangeDefinition[];
     timeSeries: number[];
-    chartingMetadata: ChartingMetadata;
-}
-
-export interface ChartingMetadata {
-    yAxisLabel: string;
 }
 
 export interface RangeDefinition {
