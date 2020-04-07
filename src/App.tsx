@@ -3,7 +3,7 @@ import "./App.sass";
 import { Map } from "./map/map";
 import { Dropdown } from "@fluentui/react";
 import { typeOptions, contactOptions } from "./constants";
-import { AreaRangeComponent } from "./arearange/area-range-component";
+import { Projection } from "./projection/projection";
 
 export function App() {
     const [type, setType] = useState<string>("hosp_need");
@@ -39,11 +39,8 @@ export function App() {
                     contact={contact}
                     onStateClicked={setStateCode}
                 />
-                
-                <AreaRangeComponent
-                    type={type}
-                    stateCode={stateCode}
-                />
+
+                <Projection type={type} stateCode={stateCode} />
             </div>
         </div>
     );
