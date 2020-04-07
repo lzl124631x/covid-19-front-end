@@ -39,11 +39,8 @@ export function App() {
                     contact={contact}
                     onStateClicked={setStateCode}
                 />
-                
-                <AreaRangeComponent
-                    type={type}
-                    stateCode={stateCode}
-                />
+
+                <AreaRangeComponent type={type} stateCode={stateCode} />
             </div>
         </div>
     );

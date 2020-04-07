@@ -62,6 +62,10 @@ const createHighChartOptions = (
             enabled: false,
         },
 
+        responsive: {
+            rules: [],
+        },
+
         series: toAreaRangeSeries(rangeData),
     };
 };
@@ -108,7 +112,7 @@ export class AreaRangeComponent extends React.Component<
                 <div className="projection-charts row">
                     {optionsList.map((options) => (
                         <div
-                            className="col-xs-12 col-sm-12 col-md-4 col-lg-4"
+                            className="col-xs-12 col-sm-4 col-md-4 col-lg-4"
                             key={options.title?.text}
                         >
                             <HighchartsReact
