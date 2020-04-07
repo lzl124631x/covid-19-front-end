@@ -2,11 +2,9 @@ import * as React from "react";
 import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
-import { getRangeData } from "../service";
-import { AreaRangeData } from "./area-range-data";
-import { toAreaRangeSeries } from "./util";
-import { typeOptions, stateCodeOptions } from "../constants";
-import "./area-range.sass";
+import { getTimeSeriesData } from "../service";
+import { TimeSeriesData, ContactData } from "./time-series-data";
+import { typeOptions } from "../constants";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -18,52 +16,102 @@ interface AreaRangeState {
     optionsForAllCharts: Highcharts.Options[];
 }
 
-const createHighChartOptions = (
-    rangeData: AreaRangeData,
-    maxValue: number,
-    type: string
-): Highcharts.Options => {
-    const title =
-        rangeData.contact === "100"
-            ? "No intervention"
-            : rangeData.contact + "% contact";
+const transform = (timeSeries: number[], lower?: number[], upper?: number[]) : any[] => {
+    const output: any[] = [];
+    if (lower != null && upper != null){
+        for (let i=0; i< timeSeries.length; i++){
+            output.push([timeSeries[i], lower[i], upper[i]]);
+        }
+    }
+    return output;
+}
+
+const toAreaRangeSeries = (contactData: ContactData, timeSeries: number[]): any[] => {
+    const percentileData = contactData.percentileData;
+    const percentile_2 = percentileData.find(_ => _.percentile==="2.5")?.data;
+    const percentile_25 = percentileData.find(_ => _.percentile==="25")?.data;
+    const percentile_50 = percentileData.find(_ => _.percentile==="50")?.data;
+    const percentile_75 = percentileData.find(_ => _.percentile==="75")?.data;
+    const percentile_97 = percentileData.find(_ => _.percentile==="97.5")?.data;
+
+    const output: any[] = [];
+    output.push({
+        name: `2.5% - 97.5%`,
+        data: transform(timeSeries, percentile_2, percentile_97),
+        type: "arearange",
+        lineWidth: 0,
+        fillOpacity: 0.3,
+        zIndex: 0,
+        marker: {
+            enabled: false,
+        },
+    } as any);
+
+    output.push({
+        name: `25% - 75%`,
+        data: transform(timeSeries, percentile_25, percentile_75),
+        type: "arearange",
+        lineWidth: 0,
+        fillOpacity: 0.3,
+        zIndex: 0,
+        marker: {
+            enabled: false,
+        },
+    } as any);
+
+    output.push({
+        name: `50%`,
+        data: percentile_50 != null ? percentile_50 : [],
+        zIndex: 1,
+        marker: {
+            enabled: false,
+        },
+    } as any);
+
+    console.log(JSON.stringify(output));
+    return output;
+};
+
+const optionsDelegate = (data: TimeSeriesData): Highcharts.Options[] => {
+    const type = data.type;
+    const stateCode = data.stateCode;
     const typeText = typeOptions.find((_) => _.key === type)?.text;
-    return {
-        title: {
-            text: title,
-        },
-        xAxis: {
-            type: "datetime",
-            dateTimeLabelFormats: {
-                day: "%e %b",
-                month: "%b%y",
-            },
-        },
-
-        yAxis: {
-            minorTickInterval: 0.1,
+    const xAxisLabel = `Dates`;
+    const yAxisLabel = `Number of ${type}s`;
+    return data.contactData.map((_eachContactData) => {
+        const title = `${typeText}s for ${
+            100 - parseInt(_eachContactData.contact.replace("data",""))
+        }% intervention for state ${stateCode}`;
+        return {
             title: {
-                text: typeText,
+                text: title,
             },
-            max: maxValue,
-            min: 0,
-        },
+            xAxis: {
+                type: "datetime",
+                dateTimeLabelFormats: {
+                    day: "%e %b",
+                    month: "%b%y",
+                },
+                title: {
+                    text: xAxisLabel,
+                },
+            },
 
-        tooltip: {
-            crosshairs: true,
-            shared: true,
-        } as any,
+            yAxis: {
+                minorTickInterval: 0.1,
+                title: {
+                    text: yAxisLabel,
+                },
+            },
 
-        legend: {
-            enabled: false,
-        },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+            } as any,
 
-        credits: {
-            enabled: false,
-        },
-
-        series: toAreaRangeSeries(rangeData),
-    };
+            series: toAreaRangeSeries(_eachContactData, data.timeSeries),
+        };
+    });
 };
 
 export class AreaRangeComponent extends React.Component<
@@ -76,69 +124,39 @@ export class AreaRangeComponent extends React.Component<
             optionsForAllCharts: [],
         };
     }
-
     public async componentDidMount() {
         await this.loadData();
     }
 
     public async componentDidUpdate(oldProps: AreaRangeProps) {
         if (
-            this.props.stateCode !== oldProps.stateCode ||
-            this.props.type !== oldProps.type
+            this.props.stateCode != oldProps.stateCode ||
+            this.props.type != oldProps.type
         ) {
             this.loadData();
         }
     }
-
     public render() {
         return this.renderCharts(this.state.optionsForAllCharts);
     }
 
-    private renderCharts(optionsList: Highcharts.Options[]): JSX.Element {
-        const typeText = typeOptions.find((_) => _.key === this.props.type)
-            ?.text;
-        const stateText = stateCodeOptions.find(
-            (s) => s.key === this.props.stateCode
-        )?.text;
-        return (
-            <div className="projections">
-                <div className="projection-title">
-                    Projection of {typeText} for {stateText}
-                </div>
-                <div className="projection-charts row">
-                    {optionsList.map((options) => (
-                        <div
-                            className="col-xs-12 col-sm-12 col-md-4 col-lg-4"
-                            key={options.title?.text}
-                        >
-                            <HighchartsReact
-                                highcharts={Highcharts}
-                                options={options}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
+    private renderCharts(optionsList: Highcharts.Options[]): JSX.Element[] {
+        return optionsList.map((options) => (
+            <HighchartsReact
+                key={options.title?.text}
+                highcharts={Highcharts}
+                options={options}
+            />
+        ));
     }
 
     private async loadData() {
-        const data = await getRangeData({
+        const data = await getTimeSeriesData({
             type: this.props.type,
             stateCode: this.props.stateCode,
         });
-        if (data) {
-            let maxValue = 0; // TODO(Sai): move the maxValue computation to backend
-            data.forEach((rangeData) => {
-                rangeData.data.forEach((x) =>
-                    x.upper.value.forEach(
-                        (v) => (maxValue = Math.max(maxValue, v))
-                    )
-                );
-            });
-            const optionsForAllCharts = data.map((d) =>
-                createHighChartOptions(d, maxValue, this.props.type)
-            );
+        if (data != null) {
+            const optionsForAllCharts = optionsDelegate(data);
             this.setState({ optionsForAllCharts });
         }
     }
