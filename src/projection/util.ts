@@ -1,9 +1,18 @@
 import { AreaRangeData } from "./type";
 
-export function toAreaRangeSeries(data: AreaRangeData): any[] {
+const colors = ["#ff0000", "#0073BD", "#404040"];
+
+export function toAreaRangeSeries(data: AreaRangeData, index: number): any[] {
     const output: any[] = [];
     const timeSeries = data.timeSeries;
 
+    const plotOptions = {
+        marker: {
+            enabled: false,
+            radius: 1,
+            symbol: "circle",
+        },
+    };
     // Zero's and sub zeros are not supported on a logarithmic scale, hence adjusting 0 to 1.
     const fixZeros = (value: number) => (value === 0 ? 1 : value);
     data.data.forEach((rangeData) => {
@@ -26,11 +35,10 @@ export function toAreaRangeSeries(data: AreaRangeData): any[] {
             type: "arearange",
             lineWidth: 0,
             linkedTo: rangeData.average.id !== null ? ":previous" : "",
+            color: colors[index],
             fillOpacity: 0.3,
             zIndex: 0,
-            marker: {
-                enabled: false,
-            },
+            ...plotOptions,
         } as any;
 
         if (rangeData.average.id !== null) {
@@ -38,9 +46,9 @@ export function toAreaRangeSeries(data: AreaRangeData): any[] {
                 name: `${rangeData.average.id}`,
                 data: averageData,
                 zIndex: 1,
-                marker: {
-                    enabled: false,
-                },
+                color: colors[index],
+                opacity: 0.5,
+                ...plotOptions,
             } as any;
             output.push(average);
         }

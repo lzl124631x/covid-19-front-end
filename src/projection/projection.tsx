@@ -21,7 +21,8 @@ interface AreaRangeState {
 const createHighChartOptions = (
     rangeData: AreaRangeData,
     maxValue: number,
-    type: string
+    type: string,
+    index: number
 ): Highcharts.Options => {
     const title =
         rangeData.contact === "100"
@@ -66,7 +67,7 @@ const createHighChartOptions = (
             rules: [],
         },
 
-        series: toAreaRangeSeries(rangeData),
+        series: toAreaRangeSeries(rangeData, index),
     };
 };
 
@@ -140,8 +141,8 @@ export class Projection extends React.Component<
                     )
                 );
             });
-            const optionsForAllCharts = data.map((d) =>
-                createHighChartOptions(d, maxValue, this.props.type)
+            const optionsForAllCharts = data.map((d, i) =>
+                createHighChartOptions(d, maxValue, this.props.type, i)
             );
             this.setState({ optionsForAllCharts });
         }
