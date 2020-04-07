@@ -1,4 +1,4 @@
-import { AreaRangeData } from "./area-range-data";
+import { AreaRangeData } from "./type";
 
 export function toAreaRangeSeries(data: AreaRangeData): any[] {
     const output: any[] = [];

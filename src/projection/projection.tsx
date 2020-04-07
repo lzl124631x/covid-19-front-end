@@ -3,10 +3,10 @@ import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getRangeData } from "../service";
-import { AreaRangeData } from "./area-range-data";
+import { AreaRangeData } from "./type";
 import { toAreaRangeSeries } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
-import "./area-range.sass";
+import "./projection.sass";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -70,7 +70,7 @@ const createHighChartOptions = (
     };
 };
 
-export class AreaRangeComponent extends React.Component<
+export class Projection extends React.Component<
     AreaRangeProps,
     AreaRangeState
 > {
