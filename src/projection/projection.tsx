@@ -132,20 +132,11 @@ export class Projection extends React.Component<
             stateCode: this.props.stateCode,
         });
         if (data) {
-            let maxValue = 0;
-            data.contactData.forEach((_) => {
-                const data = _.percentileData
-                    .map((_) => _.data)
-                    .reduce((a, b) => a.concat(b));
-                for (let i = 0; i < data.length; i++) {
-                    maxValue = data[i] > maxValue ? data[i] : maxValue;
-                }
-            });
             const optionsForAllCharts = data.contactData.map((d, i) =>
                 createHighChartOptions(
                     d,
                     data.timeSeries,
-                    maxValue,
+                    data.maxValue,
                     this.props.type,
                     i
                 )
