@@ -5,12 +5,6 @@ export const typeOptions = [
     { key: "death", text: "Death" },
 ];
 
-export const contactOptions = [
-    { key: "50", text: "50% contact" },
-    { key: "75", text: "75% contact" },
-    { key: "100", text: "No intervention" },
-];
-
 export const stateCodeOptions = [
     { text: "Alabama", key: "AL" },
     { text: "Arizona", key: "AZ" },

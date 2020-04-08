@@ -21,7 +21,7 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
     const date = dates[dateIndex];
     useInterval(
         () => {
-            setDateIndex(prev => (prev + 1) % dates.length);
+            setDateIndex((prev) => (prev + 1) % dates.length);
         },
         playing ? 500 : null
     );
@@ -36,13 +36,14 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
 
     useEffect(() => {
         (async () => {
+            if (!contact) return;
             setData(await getMap({ field, contact }));
             setDateIndex(0);
         })();
     }, [field, contact]);
 
     const typeText = typeOptions.find(({ key }) => key === type)?.text;
-    const dateData = data?.data.find(d => d[0] === date) || [];
+    const dateData = data?.data.find((d) => d[0] === date) || [];
     const series = [...(dateData[1] || [])];
     const maxValue = data?.maxValue || 0;
     const options: Highcharts.Options = {
@@ -80,7 +81,7 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
                 },
                 point: {
                     events: {
-                        click: function() {
+                        click: function () {
                             const state = (this as any).properties[
                                 "postal-code"
                             ];

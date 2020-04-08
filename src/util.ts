@@ -25,3 +25,7 @@ export function toHighChartData(
     };
     return output;
 }
+
+export function getContactText(contact: string): string {
+    return contact === "100" ? "No intervention" : contact + "% contact";
+}

@@ -5,6 +5,16 @@ import { TimeSeriesData } from "./projection/type";
 
 const backendUrl = `${window.location.protocol}//${window.location.hostname}:6789`;
 
+export const getContacts = async () => {
+    try {
+        const response = await axios.get(`${backendUrl}/contacts`);
+        console.log(response.data);
+        return response.data as string[];
+    } catch (err) {
+        alert(err);
+    }
+};
+
 export const getMap = async (options: { field: string; contact: string }) => {
     try {
         const response = await axios.get(`${backendUrl}/map`, {
@@ -46,7 +56,7 @@ export const getTimeSeriesData = async (options: {
 }): Promise<TimeSeriesData | undefined> => {
     try {
         const response = await axios.get(`${backendUrl}/timeseries-data`, {
-            params: options
+            params: options,
         });
         return response.data;
     } catch (err) {

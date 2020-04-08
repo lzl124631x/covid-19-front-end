@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.sass";
 import { Map } from "./map/map";
-import { Dropdown } from "@fluentui/react";
-import { typeOptions, contactOptions } from "./constants";
+import { Dropdown, IDropdownOption } from "@fluentui/react";
+import { typeOptions } from "./constants";
 import { Projection } from "./projection/projection";
+import { getContacts } from "./service";
+import { getContactText } from "./util";
 
 export function App() {
     const [type, setType] = useState<string>("hosp_need");
-    const [contact, setContact] = useState<string>("50");
+    const [contact, setContact] = useState<string>("");
+    const [contactOptions, setContactOptions] = useState<IDropdownOption[]>([]);
     const [stateCode, setStateCode] = useState<string>("NY");
+
+    useEffect(() => {
+        (async () => {
+            const contacts = await getContacts();
+            if (!contacts || !contacts.length) return;
+            setContactOptions(
+                contacts.map((v) => ({
+                    key: v,
+                    text: getContactText(v),
+                }))
+            );
+            setContact(contacts[0]);
+        })();
+    }, []);
 
     return (
         <div className="App">

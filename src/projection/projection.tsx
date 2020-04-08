@@ -7,6 +7,7 @@ import { ContactData } from "./type";
 import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
+import { getContactText } from "../util";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -26,7 +27,7 @@ const createHighChartOptions = (
     index: number
 ): Highcharts.Options => {
     const contact = contactData.contact.replace("data", "");
-    const title = contact === "100" ? "No intervention" : contact + "% contact";
+    const title = getContactText(contact);
     const typeText = typeOptions.find((_) => _.key === type)?.text;
     return {
         title: {
