@@ -29,7 +29,7 @@ const linedata = (
     return output;
 };
 
-export function toAreaRangeSeries(
+export function toProjectionData(
     data: ContactData,
     timeSeries: number[],
     index: number

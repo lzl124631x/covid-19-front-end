@@ -4,7 +4,7 @@ import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getTimeSeriesData } from "../service";
 import { TimeSeriesData, ContactData } from "./type";
-import { toAreaRangeSeries } from "./util";
+import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
 more(Highcharts);
@@ -66,7 +66,7 @@ const createHighChartOptions = (
             rules: [],
         },
 
-        series: toAreaRangeSeries(contactData, timeSeriesData, index),
+        series: toProjectionData(contactData, timeSeriesData, index),
     };
 };
 
