@@ -2,9 +2,9 @@ import * as React from "react";
 import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
-import { getRangeData } from "../service";
-import { AreaRangeData } from "./type";
-import { toAreaRangeSeries } from "./util";
+import { getTimeSeriesData } from "../service";
+import { TimeSeriesData, ContactData } from "./type";
+import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
 more(Highcharts);
@@ -19,15 +19,14 @@ interface AreaRangeState {
 }
 
 const createHighChartOptions = (
-    rangeData: AreaRangeData,
+    contactData: ContactData,
+    timeSeriesData: number[],
     maxValue: number,
     type: string,
     index: number
 ): Highcharts.Options => {
-    const title =
-        rangeData.contact === "100"
-            ? "No intervention"
-            : rangeData.contact + "% contact";
+    const contact = contactData.contact.replace("data", "");
+    const title = contact === "100" ? "No intervention" : contact + "% contact";
     const typeText = typeOptions.find((_) => _.key === type)?.text;
     return {
         title: {
@@ -67,7 +66,7 @@ const createHighChartOptions = (
             rules: [],
         },
 
-        series: toAreaRangeSeries(rangeData, index),
+        series: toProjectionData(contactData, timeSeriesData, index),
     };
 };
 
@@ -128,21 +127,19 @@ export class Projection extends React.Component<
     }
 
     private async loadData() {
-        const data = await getRangeData({
+        const data = await getTimeSeriesData({
             type: this.props.type,
             stateCode: this.props.stateCode,
         });
         if (data) {
-            let maxValue = 0; // TODO(Sai): move the maxValue computation to backend
-            data.forEach((rangeData) => {
-                rangeData.data.forEach((x) =>
-                    x.upper.value.forEach(
-                        (v) => (maxValue = Math.max(maxValue, v))
-                    )
-                );
-            });
-            const optionsForAllCharts = data.map((d, i) =>
-                createHighChartOptions(d, maxValue, this.props.type, i)
+            const optionsForAllCharts = data.contactData.map((d, i) =>
+                createHighChartOptions(
+                    d,
+                    data.timeSeries,
+                    data.maxValue,
+                    this.props.type,
+                    i
+                )
             );
             this.setState({ optionsForAllCharts });
         }

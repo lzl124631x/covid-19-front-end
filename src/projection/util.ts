@@ -1,10 +1,39 @@
-import { AreaRangeData } from "./type";
+import { TimeSeriesData, ContactData } from "./type";
 
 const colors = ["#ff0000", "#0073BD", "#404040"];
 
-export function toAreaRangeSeries(data: AreaRangeData, index: number): any[] {
+const range = (
+    timeSeries: number[],
+    lower?: number[],
+    upper?: number[],
+): any[] => {
     const output: any[] = [];
-    const timeSeries = data.timeSeries;
+    if (lower !=null && upper != null){
+        for (let i = 0; i < timeSeries.length; i++) {
+            output.push([timeSeries[i], lower[i], upper[i]]);
+        }
+    }
+    return output;
+};
+
+const linedata = (
+    timeSeries: number[],
+    lower?: number[],
+): any[] => {
+    const output: any[] = [];
+    if (lower !=null){
+        for (let i = 0; i < timeSeries.length; i++) {
+            output.push([timeSeries[i], lower[i]]);
+        }
+    }
+    return output;
+};
+
+export function toProjectionData(
+    data: ContactData,
+    timeSeries: number[],
+    index: number
+): any[] {
 
     const plotOptions = {
         marker: {
@@ -13,47 +42,54 @@ export function toAreaRangeSeries(data: AreaRangeData, index: number): any[] {
             symbol: "circle",
         },
     };
-    // Zero's and sub zeros are not supported on a logarithmic scale, hence adjusting 0 to 1.
-    const fixZeros = (value: number) => (value === 0 ? 1 : value);
-    data.data.forEach((rangeData) => {
-        const seriesData: any[] = [];
-        const averageData: any[] = [];
-        for (var i = 0; i < timeSeries.length - 1; i++) {
-            seriesData.push([
-                timeSeries[i],
-                fixZeros(rangeData.lower.value[i]),
-                fixZeros(rangeData.upper.value[i]),
-            ]);
-            averageData.push([
-                timeSeries[i],
-                fixZeros(rangeData.average.value[i]),
-            ]);
-        }
-        const rangePlot = {
-            name: `${rangeData.lower.id} - ${rangeData.upper.id}`,
-            data: seriesData,
+
+    const percentiledata2 = data.percentileData.find(
+        (_) => _.percentile == "2.5"
+    )?.data;
+    const percentiledata25 = data.percentileData.find(
+        (_) => _.percentile == "25"
+    )?.data;
+    const percentiledata50 = data.percentileData.find(
+        (_) => _.percentile == "50"
+    )?.data;
+    const percentiledata75 = data.percentileData.find(
+        (_) => _.percentile == "75"
+    )?.data;
+    const percentiledata97 = data.percentileData.find(
+        (_) => _.percentile == "97.5"
+    )?.data;
+
+    const output: any[] = [];
+        output.push({
+            name: `2.5% to 97.5%`,
+            data: range(timeSeries,percentiledata2, percentiledata97),
             type: "arearange",
             lineWidth: 0,
-            linkedTo: rangeData.average.id !== null ? ":previous" : "",
             color: colors[index],
             fillOpacity: 0.3,
             zIndex: 0,
             ...plotOptions,
-        } as any;
+        } as any);
 
-        if (rangeData.average.id !== null) {
-            const average = {
-                name: `${rangeData.average.id}`,
-                data: averageData,
-                zIndex: 1,
-                color: colors[index],
-                opacity: 0.5,
-                ...plotOptions,
-            } as any;
-            output.push(average);
-        }
+        output.push({
+            name: `25% to 75%`,
+            data: range(timeSeries,percentiledata25, percentiledata75),
+            type: "arearange",
+            lineWidth: 0,
+            color: colors[index],
+            fillOpacity: 0.3,
+            zIndex: 0,
+            ...plotOptions,
+        } as any);
 
-        output.push(rangePlot);
-    });
+        output.push({
+            name: `50%`,
+            data: linedata(timeSeries, percentiledata50),
+            zIndex: 1,
+            color: colors[index],
+            opacity: 0.5,
+            ...plotOptions,
+        } as any);
+
     return output;
 }

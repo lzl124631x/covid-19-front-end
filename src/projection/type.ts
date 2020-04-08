@@ -1,17 +1,17 @@
-export interface AreaRangeData {
-    type: string;
-    contact: string;
-    data: RangeDefinition[];
+export interface TimeSeriesData {
+    contactData: ContactData[];
     timeSeries: number[];
+    stateCode: string;
+    type: string;
+    maxValue: number;
 }
 
-export interface RangeDefinition {
-    upper: Bound;
-    lower: Bound;
-    average: Bound;
+export interface ContactData {
+    contact: string;
+    percentileData: PercentileData[];
 }
 
-export interface Bound {
-    id: string;
-    value: number[];
+export interface PercentileData {
+    percentile: string;
+    data: number[];
 }
