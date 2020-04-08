@@ -3,7 +3,7 @@ import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getTimeSeriesData } from "../service";
-import { TimeSeriesData, ContactData } from "./type";
+import { ContactData } from "./type";
 import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
