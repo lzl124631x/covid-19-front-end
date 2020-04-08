@@ -13,6 +13,7 @@ more(Highcharts);
 interface AreaRangeProps {
     type: string;
     stateCode: string;
+    contactsCnt: number;
 }
 
 interface AreaRangeState {
@@ -113,7 +114,11 @@ export class Projection extends React.Component<
                 <div className="projection-charts row">
                     {optionsList.map((options) => (
                         <div
-                            className="col-xs-12 col-sm-4 col-md-4 col-lg-4"
+                            className={`col-xs-12 ${
+                                this.props.contactsCnt === 3
+                                    ? "col-sm-4 col-md-4 col-lg-4"
+                                    : "col-sm-6 col-md-6 col-lg-3"
+                            }`}
                             key={options.title?.text}
                         >
                             <HighchartsReact
@@ -133,6 +138,7 @@ export class Projection extends React.Component<
             stateCode: this.props.stateCode,
         });
         if (data) {
+            data.contactData.sort((a, b) => +b.contact - +a.contact);
             const optionsForAllCharts = data.contactData.map((d, i) =>
                 createHighChartOptions(
                     d,

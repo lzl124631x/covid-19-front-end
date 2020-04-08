@@ -57,7 +57,11 @@ export function App() {
                     onStateClicked={setStateCode}
                 />
 
-                <Projection type={type} stateCode={stateCode} />
+                <Projection
+                    type={type}
+                    stateCode={stateCode}
+                    contactsCnt={contactOptions.length}
+                />
             </div>
         </div>
     );
