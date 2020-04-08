@@ -1,6 +1,6 @@
 import { ContactData } from "./type";
 
-const colors = ["#ff0000", "#0073BD", "#404040"];
+const colors = ["#ff0000", "#660099", "#0073BD", "#404040"];
 
 const range = (
     timeSeries: number[],
