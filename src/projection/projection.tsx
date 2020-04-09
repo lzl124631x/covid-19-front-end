@@ -3,11 +3,12 @@ import * as Highcharts from "highcharts";
 import more from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
 import { getTimeSeriesData } from "../service";
-import { ContactData } from "./type";
+import { ContactData, TimeSeriesData } from "./type";
 import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
 import { getContactText } from "../util";
+import { Toggle } from "@fluentui/react";
 more(Highcharts);
 
 interface AreaRangeProps {
@@ -17,7 +18,8 @@ interface AreaRangeProps {
 }
 
 interface AreaRangeState {
-    optionsForAllCharts: Highcharts.Options[];
+    data: TimeSeriesData | null;
+    showLog: boolean;
 }
 
 const createHighChartOptions = (
@@ -25,10 +27,10 @@ const createHighChartOptions = (
     timeSeriesData: number[],
     maxValue: number,
     type: string,
-    index: number
+    index: number,
+    showLog: boolean
 ): Highcharts.Options => {
-    const contact = contactData.contact.replace("data", "");
-    const title = getContactText(contact);
+    const title = getContactText(contactData.contact);
     const typeText = typeOptions.find((_) => _.key === type)?.text;
     return {
         title: {
@@ -48,7 +50,8 @@ const createHighChartOptions = (
                 text: typeText,
             },
             max: maxValue,
-            min: 0,
+            min: showLog ? 1 : 0,
+            type: showLog ? "logarithmic" : "linear",
         },
 
         tooltip: {
@@ -68,7 +71,7 @@ const createHighChartOptions = (
             rules: [],
         },
 
-        series: toProjectionData(contactData, timeSeriesData, index),
+        series: toProjectionData(contactData, timeSeriesData, index, showLog),
     };
 };
 
@@ -79,7 +82,8 @@ export class Projection extends React.Component<
     public constructor(props: AreaRangeProps) {
         super(props);
         this.state = {
-            optionsForAllCharts: [],
+            data: null,
+            showLog: false,
         };
     }
 
@@ -97,7 +101,19 @@ export class Projection extends React.Component<
     }
 
     public render() {
-        return this.renderCharts(this.state.optionsForAllCharts);
+        const data = this.state.data;
+        if (data === null) return null;
+        const optionsForAllCharts = data.contactData.map((d, i) =>
+            createHighChartOptions(
+                d,
+                data.timeSeries,
+                data.maxValue,
+                this.props.type,
+                i,
+                this.state.showLog
+            )
+        );
+        return this.renderCharts(optionsForAllCharts);
     }
 
     private renderCharts(optionsList: Highcharts.Options[]): JSX.Element {
@@ -110,6 +126,20 @@ export class Projection extends React.Component<
             <div className="projections">
                 <div className="projection-title">
                     Projection of {typeText} for {stateText}
+                </div>
+                <div className="log-control-row">
+                    <Toggle
+                        className="toggle-show-low"
+                        label="Show Log"
+                        inlineLabel
+                        onText="On"
+                        offText="Off"
+                        checked={this.state.showLog}
+                        onChange={(e, checked) =>
+                            this.setState({ showLog: !!checked })
+                        }
+                        styles={{ root: { marginBottom: 0 } }}
+                    />
                 </div>
                 <div className="projection-charts row">
                     {optionsList.map((options) => (
@@ -139,16 +169,7 @@ export class Projection extends React.Component<
         });
         if (data) {
             data.contactData.sort((a, b) => +b.contact - +a.contact);
-            const optionsForAllCharts = data.contactData.map((d, i) =>
-                createHighChartOptions(
-                    d,
-                    data.timeSeries,
-                    data.maxValue,
-                    this.props.type,
-                    i
-                )
-            );
-            this.setState({ optionsForAllCharts });
+            this.setState({ data });
         }
     }
 }

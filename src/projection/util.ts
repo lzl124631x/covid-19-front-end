@@ -29,7 +29,8 @@ const linedata = (timeSeries: number[], lower?: number[]): any[] => {
 export function toProjectionData(
     data: ContactData,
     timeSeries: number[],
-    index: number
+    index: number,
+    showLog: boolean
 ): any[] {
     const plotOptions = {
         marker: {
@@ -38,6 +39,10 @@ export function toProjectionData(
             symbol: "circle",
         },
     };
+
+    data.percentileData.forEach(
+        (d) => (d.data = d.data.map((x) => (x <= 0 ? 1 : x)))
+    );
 
     const percentiledata2 = data.percentileData.find(
         (_) => _.percentile === "2.5"
