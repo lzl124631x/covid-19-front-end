@@ -8,7 +8,6 @@ const backendUrl = `${window.location.protocol}//${window.location.hostname}:678
 export const getContacts = async () => {
     try {
         const response = await axios.get(`${backendUrl}/contacts`);
-        console.log(response.data);
         return response.data as string[];
     } catch (err) {
         alert(err);
