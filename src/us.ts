@@ -1,4 +1,4 @@
-export const mapData = {
+export const geoData = {
     title: "United States of America, mainland",
     version: "1.1.3",
     type: "FeatureCollection",
@@ -16,8 +16,8 @@ export const mapData = {
             jsonmarginX: -999,
             jsonmarginY: 9851.0,
             xoffset: -2361356.09818,
-            yoffset: 1398996.77886
-        }
+            yoffset: 1398996.77886,
+        },
     },
 
     features: [
@@ -43,7 +43,7 @@ export const mapData = {
                 "woe-name": "Massachusetts",
                 latitude: "42.3739",
                 "woe-label": "Massachusetts, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -54,8 +54,8 @@ export const mapData = {
                             [9476, 7878],
                             [9436, 7864],
                             [9417, 7844],
-                            [9430, 7889]
-                        ]
+                            [9430, 7889],
+                        ],
                     ],
                     [
                         [
@@ -94,11 +94,11 @@ export const mapData = {
                             [9373, 7898],
                             [9339, 7878],
                             [9327, 7915],
-                            [9314, 7915]
-                        ]
-                    ]
-                ]
-            }
+                            [9314, 7915],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -122,7 +122,7 @@ export const mapData = {
                 "woe-name": "Washington",
                 latitude: "47.4865",
                 "woe-label": "Washington, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -135,8 +135,8 @@ export const mapData = {
                             [-86, 9712],
                             [-136, 9751],
                             [-111, 9756],
-                            [-77, 9797]
-                        ]
+                            [-77, 9797],
+                        ],
                     ],
                     [
                         [
@@ -214,11 +214,11 @@ export const mapData = {
                             [-18, 9570],
                             [-37, 9644],
                             [-24, 9661],
-                            [-52, 9689]
-                        ]
-                    ]
-                ]
-            }
+                            [-52, 9689],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -242,7 +242,7 @@ export const mapData = {
                 "woe-name": "California",
                 latitude: "36.7496",
                 "woe-label": "California, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -322,10 +322,10 @@ export const mapData = {
                         [-849, 8038],
                         [-844, 8118],
                         [-860, 8134],
-                        [-833, 8186]
-                    ]
-                ]
-            }
+                        [-833, 8186],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -349,7 +349,7 @@ export const mapData = {
                 "woe-name": "Oregon",
                 latitude: "43.8333",
                 "woe-label": "Oregon, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -399,10 +399,10 @@ export const mapData = {
                         [662, 8361],
                         [616, 8265],
                         [510, 7813],
-                        [-50, 7955]
-                    ]
-                ]
-            }
+                        [-50, 7955],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -426,7 +426,7 @@ export const mapData = {
                 "woe-name": "Wisconsin",
                 latitude: "44.3709",
                 "woe-label": "Wisconsin, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -438,8 +438,8 @@ export const mapData = {
                             [6159, 8156],
                             [6136, 8180],
                             [6161, 8249],
-                            [6206, 8297]
-                        ]
+                            [6206, 8297],
+                        ],
                     ],
                     [
                         [
@@ -499,11 +499,11 @@ export const mapData = {
                             [6119, 7543],
                             [5780, 7519],
                             [5606, 7509],
-                            [5575, 7508]
-                        ]
-                    ]
-                ]
-            }
+                            [5575, 7508],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -527,7 +527,7 @@ export const mapData = {
                 "woe-name": "Maine",
                 latitude: "45.148",
                 "woe-label": "Maine, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -538,8 +538,8 @@ export const mapData = {
                             [9643, 8763],
                             [9665, 8747],
                             [9641, 8690],
-                            [9623, 8727]
-                        ]
+                            [9623, 8727],
+                        ],
                     ],
                     [
                         [
@@ -590,11 +590,11 @@ export const mapData = {
                             [9314, 8347],
                             [9298, 8291],
                             [9235, 8354],
-                            [9225, 8399]
-                        ]
-                    ]
-                ]
-            }
+                            [9225, 8399],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -618,7 +618,7 @@ export const mapData = {
                 "woe-name": "Michigan",
                 latitude: "43.4343",
                 "woe-label": "Michigan, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -629,8 +629,8 @@ export const mapData = {
                             [6808, 8523],
                             [6764, 8521],
                             [6774, 8565],
-                            [6802, 8561]
-                        ]
+                            [6802, 8561],
+                        ],
                     ],
                     [
                         [
@@ -638,8 +638,8 @@ export const mapData = {
                             [5834, 8966],
                             [5759, 8913],
                             [5758, 8947],
-                            [5863, 9010]
-                        ]
+                            [5863, 9010],
+                        ],
                     ],
                     [
                         [
@@ -698,8 +698,8 @@ export const mapData = {
                             [7061, 7631],
                             [7021, 7590],
                             [7008, 7500],
-                            [6976, 7443]
-                        ]
+                            [6976, 7443],
+                        ],
                     ],
                     [
                         [
@@ -765,11 +765,11 @@ export const mapData = {
                             [5931, 8757],
                             [5903, 8703],
                             [5900, 8738],
-                            [5874, 8741]
-                        ]
-                    ]
-                ]
-            }
+                            [5874, 8741],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -793,7 +793,7 @@ export const mapData = {
                 "woe-name": "Nevada",
                 latitude: "39.4299",
                 "woe-label": "Nevada, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -816,10 +816,10 @@ export const mapData = {
                         [261, 6430],
                         [32, 6779],
                         [-253, 7203],
-                        [-50, 7955]
-                    ]
-                ]
-            }
+                        [-50, 7955],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -843,7 +843,7 @@ export const mapData = {
                 "woe-name": "New Mexico",
                 latitude: "34.5002",
                 "woe-label": "New Mexico, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -861,10 +861,10 @@ export const mapData = {
                         [1815, 4756],
                         [1630, 4782],
                         [1736, 5514],
-                        [1841, 6242]
-                    ]
-                ]
-            }
+                        [1841, 6242],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -888,7 +888,7 @@ export const mapData = {
                 "woe-name": "Colorado",
                 latitude: "38.9998",
                 "woe-label": "Colorado, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -903,10 +903,10 @@ export const mapData = {
                         [3339, 6866],
                         [3329, 6696],
                         [3290, 6089],
-                        [3091, 6104]
-                    ]
-                ]
-            }
+                        [3091, 6104],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -930,7 +930,7 @@ export const mapData = {
                 "woe-name": "Wyoming",
                 latitude: "42.9999",
                 "woe-label": "Wyoming, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -947,10 +947,10 @@ export const mapData = {
                         [3019, 7770],
                         [3010, 7672],
                         [3002, 7575],
-                        [2964, 7155]
-                    ]
-                ]
-            }
+                        [2964, 7155],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -974,7 +974,7 @@ export const mapData = {
                 "woe-name": "Kansas",
                 latitude: "38.5",
                 "woe-label": "Kansas, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -990,10 +990,10 @@ export const mapData = {
                         [4833, 6050],
                         [3290, 6089],
                         [3329, 6696],
-                        [3339, 6866]
-                    ]
-                ]
-            }
+                        [3339, 6866],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1017,7 +1017,7 @@ export const mapData = {
                 "woe-name": "Nebraska",
                 latitude: "41.5002",
                 "woe-label": "Nebraska, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1050,10 +1050,10 @@ export const mapData = {
                         [4591, 6981],
                         [4591, 6981],
                         [4619, 6915],
-                        [4682, 6826]
-                    ]
-                ]
-            }
+                        [4682, 6826],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1077,7 +1077,7 @@ export const mapData = {
                 "woe-name": "Oklahoma",
                 latitude: "35.452",
                 "woe-label": "Oklahoma, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1116,10 +1116,10 @@ export const mapData = {
                         [3081, 5975],
                         [3083, 6007],
                         [3091, 6104],
-                        [3290, 6089]
-                    ]
-                ]
-            }
+                        [3290, 6089],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1143,7 +1143,7 @@ export const mapData = {
                 "woe-name": "Missouri",
                 latitude: "38.5487",
                 "woe-label": "Missouri, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1200,10 +1200,10 @@ export const mapData = {
                         [5731, 5821],
                         [5790, 5904],
                         [5767, 5957],
-                        [4835, 5920]
-                    ]
-                ]
-            }
+                        [4835, 5920],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1227,7 +1227,7 @@ export const mapData = {
                 "woe-name": "Illinois",
                 latitude: "39.946",
                 "woe-label": "Illinois, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1287,10 +1287,10 @@ export const mapData = {
                         [5575, 7508],
                         [5606, 7509],
                         [5848, 7523],
-                        [6119, 7543]
-                    ]
-                ]
-            }
+                        [6119, 7543],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1314,7 +1314,7 @@ export const mapData = {
                 "woe-name": "Indiana",
                 latitude: "39.8874",
                 "woe-label": "Indiana, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1355,10 +1355,10 @@ export const mapData = {
                         [6254, 6638],
                         [6226, 6674],
                         [6247, 6739],
-                        [6192, 7351]
-                    ]
-                ]
-            }
+                        [6192, 7351],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1382,7 +1382,7 @@ export const mapData = {
                 "woe-name": "Vermont",
                 latitude: "44.0886",
                 "woe-label": "Vermont, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1411,10 +1411,10 @@ export const mapData = {
                         [8979, 8148],
                         [9005, 8115],
                         [9005, 8115],
-                        [8922, 8096]
-                    ]
-                ]
-            }
+                        [8922, 8096],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1438,7 +1438,7 @@ export const mapData = {
                 "woe-name": "Arkansas",
                 latitude: "34.7563",
                 "woe-label": "Arkansas, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1474,10 +1474,10 @@ export const mapData = {
                         [5618, 5077],
                         [5605, 5041],
                         [5563, 5038],
-                        [4975, 5016]
-                    ]
-                ]
-            }
+                        [4975, 5016],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1501,7 +1501,7 @@ export const mapData = {
                 "woe-name": "Texas",
                 latitude: "31.131",
                 "woe-label": "Texas, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -1623,8 +1623,8 @@ export const mapData = {
                             [4685, 5235],
                             [4714, 5260],
                             [4790, 5207],
-                            [4875, 5180]
-                        ]
+                            [4875, 5180],
+                        ],
                     ],
                     [
                         [
@@ -1634,11 +1634,11 @@ export const mapData = {
                             [4245, 3297],
                             [4214, 3394],
                             [4222, 3530],
-                            [4269, 3610]
-                        ]
-                    ]
-                ]
-            }
+                            [4269, 3610],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1662,7 +1662,7 @@ export const mapData = {
                 "woe-name": "Rhode Island",
                 latitude: "41.6242",
                 "woe-label": "Rhode Island, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -1673,8 +1673,8 @@ export const mapData = {
                             [9325, 7871],
                             [9314, 7915],
                             [9327, 7915],
-                            [9339, 7878]
-                        ]
+                            [9339, 7878],
+                        ],
                     ],
                     [
                         [
@@ -1687,11 +1687,11 @@ export const mapData = {
                             [9279, 7822],
                             [9216, 7790],
                             [9212, 7845],
-                            [9177, 7968]
-                        ]
-                    ]
-                ]
-            }
+                            [9177, 7968],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1715,7 +1715,7 @@ export const mapData = {
                 "woe-name": "Alabama",
                 latitude: "32.8551",
                 "woe-label": "Alabama, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1743,10 +1743,10 @@ export const mapData = {
                         [6436, 4574],
                         [6431, 4541],
                         [6487, 4486],
-                        [6487, 4443]
-                    ]
-                ]
-            }
+                        [6487, 4443],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1770,7 +1770,7 @@ export const mapData = {
                 "woe-name": "Mississippi",
                 latitude: "32.8657",
                 "woe-label": "Mississippi, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -1812,10 +1812,10 @@ export const mapData = {
                         [6215, 5600],
                         [6236, 5574],
                         [6216, 4788],
-                        [6267, 4399]
-                    ]
-                ]
-            }
+                        [6267, 4399],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1839,7 +1839,7 @@ export const mapData = {
                 "woe-name": "North Carolina",
                 latitude: "35.6152",
                 "woe-label": "North Carolina, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -1854,8 +1854,8 @@ export const mapData = {
                             [8705, 6390],
                             [8709, 6392],
                             [8712, 6393],
-                            [8716, 6394]
-                        ]
+                            [8716, 6394],
+                        ],
                     ],
                     [
                         [
@@ -1865,8 +1865,8 @@ export const mapData = {
                             [8782, 6278],
                             [8722, 6395],
                             [8724, 6396],
-                            [8727, 6396]
-                        ]
+                            [8727, 6396],
+                        ],
                     ],
                     [
                         [
@@ -1930,11 +1930,11 @@ export const mapData = {
                             [7464, 6038],
                             [7490, 6093],
                             [7523, 6123],
-                            [7532, 6183]
-                        ]
-                    ]
-                ]
-            }
+                            [7532, 6183],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -1958,7 +1958,7 @@ export const mapData = {
                 "woe-name": "Virginia",
                 latitude: "37.7403",
                 "woe-label": "Virginia, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -2034,7 +2034,7 @@ export const mapData = {
                             [8679, 6482],
                             [8727, 6396],
                             [8724, 6396],
-                            [8722, 6395]
+                            [8722, 6395],
                         ],
                         [
                             [8558, 6548],
@@ -2047,8 +2047,8 @@ export const mapData = {
                             [8552, 6548],
                             [8552, 6548],
                             [8557, 6544],
-                            [8558, 6548]
-                        ]
+                            [8558, 6548],
+                        ],
                     ],
                     [
                         [
@@ -2056,16 +2056,16 @@ export const mapData = {
                             [8713, 6400],
                             [8716, 6394],
                             [8712, 6393],
-                            [8709, 6392]
-                        ]
+                            [8709, 6392],
+                        ],
                     ],
                     [
                         [
                             [8765, 6797],
                             [8756, 6760],
                             [8761, 6796],
-                            [8765, 6797]
-                        ]
+                            [8765, 6797],
+                        ],
                     ],
                     [
                         [
@@ -2078,11 +2078,11 @@ export const mapData = {
                             [8678, 6528],
                             [8652, 6583],
                             [8652, 6652],
-                            [8688, 6764]
-                        ]
-                    ]
-                ]
-            }
+                            [8688, 6764],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2106,7 +2106,7 @@ export const mapData = {
                 "woe-name": "Iowa",
                 latitude: "42.0423",
                 "woe-label": "Iowa, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2154,10 +2154,10 @@ export const mapData = {
                         [5561, 7544],
                         [5577, 7513],
                         [5575, 7508],
-                        [5575, 7508]
-                    ]
-                ]
-            }
+                        [5575, 7508],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2181,7 +2181,7 @@ export const mapData = {
                 "woe-name": "Maryland",
                 latitude: "39.3874",
                 "woe-label": "Maryland, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -2191,8 +2191,8 @@ export const mapData = {
                             [8761, 6796],
                             [8769, 6819],
                             [8765, 6797],
-                            [8761, 6796]
-                        ]
+                            [8761, 6796],
+                        ],
                     ],
                     [
                         [
@@ -2200,8 +2200,8 @@ export const mapData = {
                             [8779, 6884],
                             [8777, 6914],
                             [8777, 6914],
-                            [8779, 6915]
-                        ]
+                            [8779, 6915],
+                        ],
                     ],
                     [
                         [
@@ -2260,11 +2260,11 @@ export const mapData = {
                             [8771, 6913],
                             [8770, 6856],
                             [8753, 6848],
-                            [8739, 6789]
-                        ]
-                    ]
-                ]
-            }
+                            [8739, 6789],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2288,7 +2288,7 @@ export const mapData = {
                 "woe-name": "Delaware",
                 latitude: "38.8657",
                 "woe-label": "Delaware, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2309,10 +2309,10 @@ export const mapData = {
                         [8751, 6999],
                         [8779, 6915],
                         [8777, 6914],
-                        [8777, 6914]
-                    ]
-                ]
-            }
+                        [8777, 6914],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2336,7 +2336,7 @@ export const mapData = {
                 "woe-name": "Pennsylvania",
                 latitude: "40.8601",
                 "woe-label": "Pennsylvania, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2367,10 +2367,10 @@ export const mapData = {
                         [8588, 7712],
                         [8673, 7663],
                         [8673, 7663],
-                        [8611, 7549]
-                    ]
-                ]
-            }
+                        [8611, 7549],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2394,7 +2394,7 @@ export const mapData = {
                 "woe-name": "New Jersey",
                 latitude: "40.0449",
                 "woe-label": "New Jersey, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2427,10 +2427,10 @@ export const mapData = {
                         [8627, 7443],
                         [8615, 7490],
                         [8632, 7530],
-                        [8611, 7549]
-                    ]
-                ]
-            }
+                        [8611, 7549],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2454,7 +2454,7 @@ export const mapData = {
                 "woe-name": "New York",
                 latitude: "43.1988",
                 "woe-label": "New York, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2528,10 +2528,10 @@ export const mapData = {
                         [8759, 7635],
                         [8695, 7656],
                         [8673, 7663],
-                        [8673, 7663]
-                    ]
-                ]
-            }
+                        [8673, 7663],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2555,7 +2555,7 @@ export const mapData = {
                 "woe-name": "Idaho",
                 latitude: "43.7825",
                 "woe-label": "Idaho, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2614,10 +2614,10 @@ export const mapData = {
                         [774, 8822],
                         [779, 8870],
                         [767, 8925],
-                        [926, 9593]
-                    ]
-                ]
-            }
+                        [926, 9593],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2641,7 +2641,7 @@ export const mapData = {
                 "woe-name": "South Dakota",
                 latitude: "44.4711",
                 "woe-label": "South Dakota, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2670,10 +2670,10 @@ export const mapData = {
                         [4194, 7574],
                         [4148, 7558],
                         [4071, 7611],
-                        [3010, 7672]
-                    ]
-                ]
-            }
+                        [3010, 7672],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2697,7 +2697,7 @@ export const mapData = {
                 "woe-name": "Connecticut",
                 latitude: "41.6486",
                 "woe-label": "Connecticut, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2716,10 +2716,10 @@ export const mapData = {
                         [8997, 7925],
                         [9177, 7968],
                         [9212, 7845],
-                        [9216, 7790]
-                    ]
-                ]
-            }
+                        [9216, 7790],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2743,7 +2743,7 @@ export const mapData = {
                 "woe-name": "New Hampshire",
                 latitude: "43.5993",
                 "woe-label": "New Hampshire, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2770,10 +2770,10 @@ export const mapData = {
                         [9079, 8830],
                         [9225, 8399],
                         [9235, 8354],
-                        [9298, 8291]
-                    ]
-                ]
-            }
+                        [9298, 8291],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2797,7 +2797,7 @@ export const mapData = {
                 "woe-name": "Kentucky",
                 latitude: "37.3994",
                 "woe-label": "Kentucky, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "MultiPolygon",
@@ -2807,8 +2807,8 @@ export const mapData = {
                             [5893, 5966],
                             [5890, 5980],
                             [5907, 5967],
-                            [5893, 5966]
-                        ]
+                            [5893, 5966],
+                        ],
                     ],
                     [
                         [
@@ -2872,8 +2872,8 @@ export const mapData = {
                             [6250, 6032],
                             [6200, 6040],
                             [6210, 5991],
-                            [5921, 5968]
-                        ]
+                            [5921, 5968],
+                        ],
                     ],
                     [
                         [
@@ -2882,11 +2882,11 @@ export const mapData = {
                             [7270, 6617],
                             [7270, 6617],
                             [7270, 6617],
-                            [7270, 6617]
-                        ]
-                    ]
-                ]
-            }
+                            [7270, 6617],
+                        ],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2910,7 +2910,7 @@ export const mapData = {
                 "woe-name": "Ohio",
                 latitude: "40.0924",
                 "woe-label": "Ohio, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -2954,10 +2954,10 @@ export const mapData = {
                         [6873, 6741],
                         [6797, 6730],
                         [6732, 7296],
-                        [6718, 7400]
-                    ]
-                ]
-            }
+                        [6718, 7400],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -2981,7 +2981,7 @@ export const mapData = {
                 "woe-name": "Tennessee",
                 latitude: "35.7514",
                 "woe-label": "Tennessee, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3030,10 +3030,10 @@ export const mapData = {
                         [6918, 5671],
                         [6762, 5652],
                         [6213, 5603],
-                        [6215, 5600]
-                    ]
-                ]
-            }
+                        [6215, 5600],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3057,7 +3057,7 @@ export const mapData = {
                 "woe-name": "West Virginia",
                 latitude: "38.6422",
                 "woe-label": "West Virginia, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3117,10 +3117,10 @@ export const mapData = {
                         [7270, 6617],
                         [7270, 6617],
                         [7270, 6617],
-                        [7270, 6617]
-                    ]
-                ]
-            }
+                        [7270, 6617],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3144,7 +3144,7 @@ export const mapData = {
                 "woe-name": "District of Columbia",
                 latitude: "38.8922",
                 "woe-label": "District of Columbia, US, United States",
-                type: "Federal District"
+                type: "Federal District",
             },
             geometry: {
                 type: "Polygon",
@@ -3156,10 +3156,10 @@ export const mapData = {
                         [8347, 6939],
                         [8341, 6945],
                         [8385, 6943],
-                        [8367, 6916]
-                    ]
-                ]
-            }
+                        [8367, 6916],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3183,7 +3183,7 @@ export const mapData = {
                 "woe-name": "Louisiana",
                 latitude: "30.5274",
                 "woe-label": "Louisiana, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3259,10 +3259,10 @@ export const mapData = {
                         [5523, 4510],
                         [5955, 4536],
                         [5936, 4451],
-                        [6017, 4328]
-                    ]
-                ]
-            }
+                        [6017, 4328],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3286,7 +3286,7 @@ export const mapData = {
                 "woe-name": "Florida",
                 latitude: "28.1568",
                 "woe-label": "Florida, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3362,10 +3362,10 @@ export const mapData = {
                         [6694, 4444],
                         [6468, 4388],
                         [6505, 4431],
-                        [6487, 4443]
-                    ]
-                ]
-            }
+                        [6487, 4443],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3389,7 +3389,7 @@ export const mapData = {
                 "woe-name": "Georgia",
                 latitude: "32.8547",
                 "woe-label": "Georgia, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3435,10 +3435,10 @@ export const mapData = {
                         [7798, 4798],
                         [7817, 4730],
                         [7808, 4673],
-                        [7713, 4686]
-                    ]
-                ]
-            }
+                        [7713, 4686],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3462,7 +3462,7 @@ export const mapData = {
                 "woe-name": "South Carolina",
                 latitude: "33.8578",
                 "woe-label": "South Carolina, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3500,10 +3500,10 @@ export const mapData = {
                         [7782, 5790],
                         [7791, 5756],
                         [8029, 5790],
-                        [8302, 5600]
-                    ]
-                ]
-            }
+                        [8302, 5600],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3527,7 +3527,7 @@ export const mapData = {
                 "woe-name": "Minnesota",
                 latitude: "46.0592",
                 "woe-label": "Minnesota, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3592,10 +3592,10 @@ export const mapData = {
                         [4347, 8957],
                         [4343, 9053],
                         [4353, 9083],
-                        [4333, 9174]
-                    ]
-                ]
-            }
+                        [4333, 9174],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3619,7 +3619,7 @@ export const mapData = {
                 "woe-name": "Montana",
                 latitude: "46.9965",
                 "woe-label": "Montana, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3666,10 +3666,10 @@ export const mapData = {
                         [1061, 9142],
                         [1076, 9210],
                         [1036, 9301],
-                        [1093, 9555]
-                    ]
-                ]
-            }
+                        [1093, 9555],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3693,7 +3693,7 @@ export const mapData = {
                 "woe-name": "North Dakota",
                 latitude: "47.4675",
                 "woe-label": "North Dakota, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3714,10 +3714,10 @@ export const mapData = {
                         [4436, 8472],
                         [4444, 8372],
                         [4231, 8374],
-                        [3080, 8436]
-                    ]
-                ]
-            }
+                        [3080, 8436],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3741,7 +3741,7 @@ export const mapData = {
                 "woe-name": "Arizona",
                 latitude: "34.3046",
                 "woe-label": "Arizona, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3774,10 +3774,10 @@ export const mapData = {
                         [1488, 6297],
                         [1841, 6242],
                         [1736, 5514],
-                        [1630, 4782]
-                    ]
-                ]
-            }
+                        [1630, 4782],
+                    ],
+                ],
+            },
         },
         {
             type: "Feature",
@@ -3801,7 +3801,7 @@ export const mapData = {
                 "woe-name": "Utah",
                 latitude: "39.5007",
                 "woe-label": "Utah, US, United States",
-                type: "State"
+                type: "State",
             },
             geometry: {
                 type: "Polygon",
@@ -3817,10 +3817,10 @@ export const mapData = {
                         [1600, 7329],
                         [1990, 7269],
                         [1966, 7108],
-                        [1841, 6242]
-                    ]
-                ]
-            }
-        }
-    ]
+                        [1841, 6242],
+                    ],
+                ],
+            },
+        },
+    ],
 };

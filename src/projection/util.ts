@@ -1,4 +1,5 @@
 import { ContactData } from "./type";
+import { fixDataForLog } from "../util";
 
 const colors = ["#ff0000", "#660099", "#0073BD", "#404040"];
 
@@ -40,9 +41,11 @@ export function toProjectionData(
         },
     };
 
-    data.percentileData.forEach(
-        (d) => (d.data = d.data.map((x) => (x <= 0 ? 1 : x)))
-    );
+    if (showLog) {
+        data.percentileData.forEach(
+            (d) => (d.data = d.data.map((x) => fixDataForLog(x)))
+        );
+    }
 
     const percentiledata2 = data.percentileData.find(
         (_) => _.percentile === "2.5"

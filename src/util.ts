@@ -29,3 +29,7 @@ export function toHighChartData(
 export function getContactText(contact: string): string {
     return contact === "100" ? "No intervention" : contact + "% contact";
 }
+
+export function fixDataForLog(x: number): number {
+    return x <= 0 ? 1 : x;
+}

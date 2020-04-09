@@ -1,11 +1,11 @@
 import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
-import { mapData } from "../us";
+import { geoData } from "../us";
 import { getMap, getDates } from "../service";
 import React, { useEffect, useState } from "react";
 import "./map.sass";
 import { MapData } from "../type";
-import { useInterval } from "../util";
+import { useInterval, fixDataForLog } from "../util";
 import { Slider, Toggle } from "@fluentui/react";
 import { typeOptions } from "../constants";
 import { MapProps } from "./type";
@@ -17,6 +17,7 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
     const [dates, setDates] = useState<string[]>([]);
     const [dateIndex, setDateIndex] = useState<number>(0);
     const [playing, setPlaying] = useState(true);
+    const showLog = false;
     const field = `${type}_${percentile}`;
     const date = dates[dateIndex];
     useInterval(
@@ -44,7 +45,10 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
 
     const typeText = typeOptions.find(({ key }) => key === type)?.text;
     const dateData = data?.data.find((d) => d[0] === date) || [];
-    const series = [...(dateData[1] || [])];
+    let series = [...(dateData[1] || [])];
+    if (showLog) {
+        series.forEach((d) => (d[1] = fixDataForLog(d[1])));
+    }
     const maxValue = data?.maxValue || 0;
     const options: Highcharts.Options = {
         title: {
@@ -56,18 +60,19 @@ export function Map({ type, contact, onStateClicked }: MapProps) {
             borderRadius: 5,
         },
         colorAxis: {
-            min: 0,
+            min: showLog ? 1 : 0,
             max: maxValue,
+            type: showLog ? "logarithmic" : "linear",
             stops: [
                 [0, "#FFFFFF"],
-                [0.5, "#FFA500"],
+                // [0.5, "#FFA500"],
                 [1, "#65000b"],
             ],
         },
 
         series: [
             {
-                mapData: mapData,
+                mapData: geoData,
                 name: typeText,
                 data: series,
                 dataLabels: {
