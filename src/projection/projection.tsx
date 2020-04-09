@@ -22,6 +22,25 @@ interface AreaRangeState {
     showLog: boolean;
 }
 
+function getPercentageValue(str: string): number {
+    return +str.replace("%", "");
+}
+
+function getAreaRangePoints(point: any) {
+    const parts = point.series.name.split(" to ");
+    const lowText = parts[0];
+    const highText = parts[1];
+
+    return [
+        { key: getPercentageValue(lowText), value: point.point.low },
+        { key: getPercentageValue(highText), value: point.point.high },
+    ];
+}
+
+function getLinePoint(point: any) {
+    return { key: getPercentageValue(point.series.name), value: point.y };
+}
+
 const createHighChartOptions = (
     contactData: ContactData,
     timeSeriesData: number[],
@@ -57,6 +76,28 @@ const createHighChartOptions = (
         tooltip: {
             crosshairs: true,
             shared: true,
+            formatter: function () {
+                const points = [
+                    ...getAreaRangePoints(this.points[0]),
+                    ...getAreaRangePoints(this.points[1]),
+                    getLinePoint(this.points[2]),
+                ];
+                const date = this.points[0].x;
+                const dateText = Highcharts.dateFormat("%A, %b %d", date);
+                points.sort((a, b) => b.key - a.key);
+                return [
+                    `<div style="font-size:.9em">${dateText}</div>`,
+                    ...points.map(
+                        (p) =>
+                            `<div>${p.key}%:\t${Highcharts.numberFormat(
+                                p.value,
+                                0,
+                                ".",
+                                " "
+                            )}</div>`
+                    ),
+                ].join("<br/>");
+            },
         } as any,
 
         legend: {
