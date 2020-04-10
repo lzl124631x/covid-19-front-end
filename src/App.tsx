@@ -36,8 +36,7 @@ export function App() {
                     <div className="app-controls-body">
                         <Dropdown
                             className="app-control"
-                            dropdownWidth={250}
-                            styles={{ dropdown: { width: 250 } }}
+                            dropdownWidth={0}
                             selectedKey={type}
                             options={typeOptions}
                             label="Type"
@@ -45,8 +44,7 @@ export function App() {
                         />
                         <Dropdown
                             className="app-control"
-                            dropdownWidth={420}
-                            styles={{ dropdown: { width: 420 } }}
+                            dropdownWidth={0}
                             selectedKey={contact}
                             options={contactOptions}
                             label="Social Distancing"
