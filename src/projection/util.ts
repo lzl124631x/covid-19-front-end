@@ -82,14 +82,14 @@ export function toProjectionData(
         lineWidth: 0,
         color: colors[index],
         fillOpacity: 0.3,
-        zIndex: 0,
+        zIndex: 1,
         ...plotOptions,
     } as any);
 
     output.push({
         name: `50%`,
         data: linedata(timeSeries, percentiledata50),
-        zIndex: 1,
+        zIndex: 2,
         color: colors[index],
         opacity: 0.5,
         ...plotOptions,

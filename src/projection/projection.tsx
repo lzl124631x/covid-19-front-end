@@ -76,11 +76,15 @@ const createHighChartOptions = (
             crosshairs: true,
             shared: true,
             formatter: function () {
-                const points = [
-                    ...getAreaRangePoints(this.points[0]),
-                    ...getAreaRangePoints(this.points[1]),
-                    getLinePoint(this.points[2]),
-                ];
+                const points: { key: number; value: number }[] = this.points
+                    .map((point: any) => {
+                        if (point.series.type === "arearange") {
+                            return getAreaRangePoints(point);
+                        } else {
+                            return [getLinePoint(point)];
+                        }
+                    })
+                    .reduce((memo: any[], p: any[]) => memo.concat(p));
                 const date = this.points[0].x;
                 const dateText = Highcharts.dateFormat("%A, %b %d", date);
                 points.sort((a, b) => b.key - a.key);
