@@ -31,7 +31,9 @@ export function App() {
     return (
         <div className="App">
             <div className="container">
-                <div className="app-header">COVID-19 Projection</div>
+                <div className="app-header">
+                    Columbia University COVID-19 Projections
+                </div>
                 <div className="app-controls">
                     <div className="app-controls-body">
                         <Dropdown
