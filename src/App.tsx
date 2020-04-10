@@ -36,8 +36,8 @@ export function App() {
                     <div className="app-controls-body">
                         <Dropdown
                             className="app-control"
-                            dropdownWidth={100}
-                            styles={{ dropdown: { width: 100 } }}
+                            dropdownWidth={250}
+                            styles={{ dropdown: { width: 250 } }}
                             selectedKey={type}
                             options={typeOptions}
                             label="Type"
@@ -45,8 +45,8 @@ export function App() {
                         />
                         <Dropdown
                             className="app-control"
-                            dropdownWidth={150}
-                            styles={{ dropdown: { width: 150 } }}
+                            dropdownWidth={420}
+                            styles={{ dropdown: { width: 420 } }}
                             selectedKey={contact}
                             options={contactOptions}
                             label="Social Distancing"
@@ -56,7 +56,7 @@ export function App() {
                         />
                     </div>
                     <Toggle
-                        className="toggle-show-low"
+                        className="toggle-show-log"
                         label="Show Log"
                         inlineLabel
                         onText="On"

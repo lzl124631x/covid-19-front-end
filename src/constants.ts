@@ -1,8 +1,8 @@
 export const typeOptions = [
-    { key: "hosp_need", text: "Bed" },
-    { key: "ICU_need", text: "ICU" },
-    { key: "vent_need", text: "Ventilator" },
-    { key: "death", text: "Death" },
+    { key: "hosp_need", text: "Cumulative hospital bed demand" },
+    { key: "ICU_need", text: "Cumulative ICU bed demand" },
+    { key: "vent_need", text: "Cumulative ventilator demand" },
+    { key: "death", text: "Daily new deaths" },
 ];
 
 export const stateCodeOptions = [

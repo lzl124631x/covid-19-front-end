@@ -27,7 +27,11 @@ export function toHighChartData(
 }
 
 export function getContactText(contact: string): string {
-    return contact === "100" ? "No intervention" : contact + "% contact";
+    return contact === "100"
+        ? "No further reduction of contact"
+        : `Weekly ${
+              100 - +contact
+          }% reduction of contact until weekly cases decline`;
 }
 
 export function fixDataForLog(x: number): number {
