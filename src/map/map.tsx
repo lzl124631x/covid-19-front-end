@@ -62,11 +62,21 @@ export function Map({ type, contact, onStateClicked, showLog }: MapProps) {
             min: showLog ? 1 : 0,
             max: maxValue,
             type: showLog ? "logarithmic" : "linear",
-            stops: [
-                [0, "#FFFFFF"],
-                // [0.5, "#FFA500"],
-                [1, "#65000b"],
-            ],
+            stops: showLog
+                ? [
+                      [0, "#FFFFFF"],
+                      [0.5, "#FFC100"],
+                      [0.75, "#FF9900"],
+                      [0.875, "#FF7400"],
+                      [1, "#FF0000"],
+                  ]
+                : [
+                      [0, "#FFFFFF"],
+                      [0.25, "#FFC100"],
+                      [0.5, "#FF9900"],
+                      [0.75, "#FF7400"],
+                      [1, "#FF0000"],
+                  ],
         },
 
         series: [
@@ -76,6 +86,7 @@ export function Map({ type, contact, onStateClicked, showLog }: MapProps) {
                 data: series,
                 dataLabels: {
                     enabled: true,
+                    color: "black",
                     format: "{point.name}",
                 },
                 states: {
