@@ -10,14 +10,13 @@ import { Slider, Toggle } from "@fluentui/react";
 import { typeOptions } from "../constants";
 import { MapProps } from "./type";
 
-export function Map({ type, contact, onStateClicked }: MapProps) {
+export function Map({ type, contact, onStateClicked, showLog }: MapProps) {
     const [data, setData] = useState<MapData>();
     const percentile = "50"; // Hiding percentile for map for now
     // const [percentile, setPercentile] = useState<string>("50");
     const [dates, setDates] = useState<string[]>([]);
     const [dateIndex, setDateIndex] = useState<number>(0);
     const [playing, setPlaying] = useState(true);
-    const showLog = false;
     const field = `${type}_${percentile}`;
     const date = dates[dateIndex];
     useInterval(

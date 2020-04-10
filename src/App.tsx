@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.sass";
 import { Map } from "./map/map";
-import { Dropdown, IDropdownOption } from "@fluentui/react";
+import { Dropdown, IDropdownOption, Toggle } from "@fluentui/react";
 import { typeOptions } from "./constants";
 import { Projection } from "./projection/projection";
 import { getContacts } from "./service";
@@ -12,6 +12,7 @@ export function App() {
     const [contact, setContact] = useState<string>("");
     const [contactOptions, setContactOptions] = useState<IDropdownOption[]>([]);
     const [stateCode, setStateCode] = useState<string>("NY");
+    const [showLog, setShowLog] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -32,34 +33,50 @@ export function App() {
             <div className="container">
                 <div className="app-header">COVID-19 Projection</div>
                 <div className="app-controls">
-                    <Dropdown
-                        className="app-control"
-                        dropdownWidth={100}
-                        styles={{ dropdown: { width: 100 } }}
-                        selectedKey={type}
-                        options={typeOptions}
-                        label="Type"
-                        onChange={(e, item) => setType(item?.key as string)}
-                    />
-                    <Dropdown
-                        className="app-control"
-                        dropdownWidth={150}
-                        styles={{ dropdown: { width: 150 } }}
-                        selectedKey={contact}
-                        options={contactOptions}
-                        label="Social Distancing"
-                        onChange={(e, item) => setContact(item?.key as string)}
+                    <div className="app-controls-body">
+                        <Dropdown
+                            className="app-control"
+                            dropdownWidth={100}
+                            styles={{ dropdown: { width: 100 } }}
+                            selectedKey={type}
+                            options={typeOptions}
+                            label="Type"
+                            onChange={(e, item) => setType(item?.key as string)}
+                        />
+                        <Dropdown
+                            className="app-control"
+                            dropdownWidth={150}
+                            styles={{ dropdown: { width: 150 } }}
+                            selectedKey={contact}
+                            options={contactOptions}
+                            label="Social Distancing"
+                            onChange={(e, item) =>
+                                setContact(item?.key as string)
+                            }
+                        />
+                    </div>
+                    <Toggle
+                        className="toggle-show-low"
+                        label="Show Log"
+                        inlineLabel
+                        onText="On"
+                        offText="Off"
+                        checked={showLog}
+                        onChange={(e, checked) => setShowLog(!!checked)}
+                        styles={{ root: { marginBottom: 0 } }}
                     />
                 </div>
                 <Map
                     type={type}
                     contact={contact}
                     onStateClicked={setStateCode}
+                    showLog={showLog}
                 />
 
                 <Projection
                     type={type}
                     stateCode={stateCode}
+                    showLog={showLog}
                     contactsCnt={contactOptions.length}
                 />
             </div>

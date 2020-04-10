@@ -8,18 +8,17 @@ import { toProjectionData } from "./util";
 import { typeOptions, stateCodeOptions } from "../constants";
 import "./projection.sass";
 import { getContactText } from "../util";
-import { Toggle } from "@fluentui/react";
 more(Highcharts);
 
 interface AreaRangeProps {
     type: string;
     stateCode: string;
     contactsCnt: number;
+    showLog: boolean;
 }
 
 interface AreaRangeState {
     data: TimeSeriesData | null;
-    showLog: boolean;
 }
 
 function getPercentageValue(str: string): number {
@@ -124,7 +123,6 @@ export class Projection extends React.Component<
         super(props);
         this.state = {
             data: null,
-            showLog: false,
         };
     }
 
@@ -151,7 +149,7 @@ export class Projection extends React.Component<
                 data.maxValue,
                 this.props.type,
                 i,
-                this.state.showLog
+                this.props.showLog
             )
         );
         return this.renderCharts(optionsForAllCharts);
@@ -167,20 +165,6 @@ export class Projection extends React.Component<
             <div className="projections">
                 <div className="projection-title">
                     Projection of {typeText} for {stateText}
-                </div>
-                <div className="log-control-row">
-                    <Toggle
-                        className="toggle-show-low"
-                        label="Show Log"
-                        inlineLabel
-                        onText="On"
-                        offText="Off"
-                        checked={this.state.showLog}
-                        onChange={(e, checked) =>
-                            this.setState({ showLog: !!checked })
-                        }
-                        styles={{ root: { marginBottom: 0 } }}
-                    />
                 </div>
                 <div className="projection-charts row">
                     {optionsList.map((options) => (

@@ -1,6 +1,7 @@
 export interface MapProps {
     type: string;
     contact: string;
+    showLog: boolean;
     onStateClicked: (state: string) => void;
 }
 
