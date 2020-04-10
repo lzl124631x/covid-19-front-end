@@ -79,6 +79,40 @@ export function App() {
                     showLog={showLog}
                     contactsCnt={contactOptions.length}
                 />
+                <div className="app-footer">
+                    <p>Provided with ❤️ by</p>
+                    <p className="info-row">
+                        <i>
+                            Columbia University Mailman School of Public Health
+                            Team
+                        </i>
+                        : Sen Pei, Sasikiran Kandula, Wan Yang, Teresa Yamana,
+                        Marta Galanti, Jeffrey Shaman
+                    </p>
+                    <p className="info-row">
+                        <i>Microsoft Corporation</i>:{" "}
+                        <a target="_blank" href="https://liuzhenglai.com">
+                            Richard Liu
+                        </a>
+                        ,{" "}
+                        <a
+                            target="_blank"
+                            href="https://www.linkedin.com/in/supramo"
+                        >
+                            Sai Upadhyayula
+                        </a>
+                    </p>
+                    <p className="info-row">
+                        <i>Source of Underlying County-level Projections</i>:{" "}
+                        <a
+                            target="_blank"
+                            href=" https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/"
+                        >
+                            USAFACTS
+                        </a>
+                    </p>
+                    <p className="copyright">© 2020 Shaman Lab</p>
+                </div>
             </div>
         </div>
     );
