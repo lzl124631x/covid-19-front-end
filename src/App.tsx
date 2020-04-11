@@ -101,6 +101,7 @@ export function App() {
                         >
                             Sai Upadhyayula
                         </a>
+                        , Jenny Ye, Zhangwei Xu
                     </p>
                     <p className="info-row">
                         <i>Source of Underlying County-level Projections</i>:{" "}
