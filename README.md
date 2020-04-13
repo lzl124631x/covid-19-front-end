@@ -11,7 +11,7 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ### Deployment to production
-
+Install VSCode<br />
 Install the azure app service extension from  https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice<br />
 Copy the `.env.sample` file to `.env`. Replace the place holders with actual variables.<br />
 Run the command `yarn run build` to produce the build folder.<br />
