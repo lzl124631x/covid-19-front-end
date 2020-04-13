@@ -12,11 +12,12 @@
         "react-scripts": "^3.4.1"
     },
     "scripts": {
+        "copyto": "node -e \"require('fs').createReadStream('build/index.html').pipe(require('fs').createWriteStream('build/hostingstart.html')); console.log('index.html successfully copied to hostingstart.html!')\"",
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "react-scripts build && yarn run copyto",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "serve": "npx serve -l 9876 -s build"
+        "serve": "npx serve -l 80 -s build"
     },
     "eslintConfig": {
         "extends": "react-app"
