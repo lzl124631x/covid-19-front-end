@@ -3,7 +3,7 @@ import { StackedChartData } from "./stackedchart/StackedChartData";
 import { MapData } from "./type";
 import { TimeSeriesData } from "./projection/type";
 
-const backendUrl = process.env.REACT_APP_API_PROD != null ? process.env.REACT_APP_API_PROD : `${window.location.protocol}//${window.location.hostname}:6789`;
+const backendUrl = process.env.REACT_APP_API_ENDPOINT != null ? process.env.REACT_APP_API_ENDPOINT : `${window.location.protocol}//${window.location.hostname}:6789`;
 
 export const getContacts = async () => {
     try {
