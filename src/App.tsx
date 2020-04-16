@@ -104,7 +104,7 @@ export function App() {
                         , Jenny Ye, Zhangwei Xu
                     </p>
                     <p className="info-row">
-                        <i>Source of Underlying County-level Projections</i>:{" "}
+                        <i>Source of Underlying County-level Data</i>:{" "}
                         <a
                             target="_blank"
                             href=" https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/"
