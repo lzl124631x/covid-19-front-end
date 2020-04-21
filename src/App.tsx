@@ -80,7 +80,13 @@ export function App() {
                     contactsCnt={contactOptions.length}
                 />
                 <div className="app-footer">
-                    <p>Provided with ❤️ by</p>
+                    <p>
+                        Provided with{" "}
+                        <span role="img" aria-label="love">
+                            ❤️
+                        </span>{" "}
+                        by
+                    </p>
                     <p className="info-row">
                         <i>
                             Columbia University Mailman School of Public Health
@@ -91,13 +97,18 @@ export function App() {
                     </p>
                     <p className="info-row">
                         <i>Microsoft Corporation</i>:{" "}
-                        <a target="_blank" href="https://liuzhenglai.com">
+                        <a
+                            target="_blank"
+                            href="https://liuzhenglai.com"
+                            rel="noopener noreferrer"
+                        >
                             Richard Liu
                         </a>
                         ,{" "}
                         <a
                             target="_blank"
                             href="https://www.linkedin.com/in/supramo"
+                            rel="noopener noreferrer"
                         >
                             Sai Upadhyayula
                         </a>
